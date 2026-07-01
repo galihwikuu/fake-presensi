@@ -154,24 +154,44 @@ camBtn.addEventListener('click', async () => {
 
 });
 
+// =========================
+// RETAKE
+// =========================
+retakeBtn.addEventListener("click", () => {
 
-function wrapText(ctx, text, x, y, maxWidth, lineHeight){
-  const words = text.split(' ');
-  let line = '';
-  let lines = [];
-  for(let w of words){
-    const test = line + w + ' ';
-    if(ctx.measureText(test).width > maxWidth && line !== ''){
-      lines.push(line.trim());
-      line = w + ' ';
-    } else {
-      line = test;
-    }
-  }
-  lines.push(line.trim());
-  lines.forEach((l,i) => ctx.fillText(l, x, y + i*lineHeight));
-  return lines.length;
-}
+    shotImg.style.display = "none";
+    video.style.display = "block";
+
+    frameWrap.style.aspectRatio = defaultAspectRatio;
+
+    hint.style.display = "flex";
+
+    openOptionBtn.style.display = "flex";
+    openOptionBtn.textContent = "📤 Unggah Gambar";
+
+    optionMenu.style.display = "none";
+
+    retakeBtn.style.display = "none";
+    downloadBtn.style.display = "none";
+
+    finalDataUrl = null;
+    statusEl.textContent = "";
+
+});
+
+// =========================
+// DOWNLOAD
+// =========================
+downloadBtn.addEventListener("click", () => {
+
+    if (!finalDataUrl) return;
+
+    const a = document.createElement("a");
+    a.href = finalDataUrl;
+    a.download = `presensi_${Date.now()}.jpg`;
+    a.click();
+
+});
 
 function drawLocation(ctx, text, x, bottom, maxWidth, lineHeight){
 
@@ -214,24 +234,6 @@ function drawLocation(ctx, text, x, bottom, maxWidth, lineHeight){
 // Layout Watermark
 // ==============================
 const layouts = {
-
-    "3:4":{
-
-        infoX: 20,
-        infoY: 30,
-        infoGap: 8,
-
-        logoX:-12,
-        logoY: -40,
-        logoScale:0.44,
-
-        locationX: 20,
-        locationY:-17,
-
-        fontDate:16,
-        fontId:15,
-        fontLocation:15
-    },
 
     "4:3":{
 
@@ -307,34 +309,55 @@ const layouts = {
 
 };
 
+const customSizes = {
 
-function getAspectRatio(w, h){
+    "480x640": {
 
-    const ratio = w / h;
+        infoX:100,
+        infoY:30,
+        infoGap:8,
 
-    const ratios = {
-        "1:1": 1,
-        "4:3": 4/3,
-        "3:4": 3/4,
-        "16:9": 16/9,
-        "9:16": 9/16
-    };
+        logoX:-12,
+        logoY:-40,
+        logoScale:0.44,
 
-    let closest = "4:3";
-    let minDiff = Infinity;
+        locationX:20,
+        locationY:-17,
 
-    for(const key in ratios){
-
-        const diff = Math.abs(ratio - ratios[key]);
-
-        if(diff < minDiff){
-            minDiff = diff;
-            closest = key;
-        }
+        fontDate:16,
+        fontId:15,
+        fontLocation:15
 
     }
 
-    return closest;
+};
+
+
+function getAspectRatio(w, h) {
+
+    const ratio = w / h;
+
+    // 1:1
+    if (Math.abs(ratio - 1) < 0.08)
+        return "1:1";
+
+    // Keluarga 4:3 (landscape & portrait)
+    if (
+        Math.abs(ratio - (4/3)) < 0.08 ||
+        Math.abs(ratio - (3/4)) < 0.08
+    ){
+        return "4:3";
+    }
+
+    // Keluarga 16:9 (landscape & portrait)
+    if (
+        Math.abs(ratio - (16/9)) < 0.10 ||
+        Math.abs(ratio - (9/16)) < 0.10
+    ){
+        return "16:9";
+    }
+
+    return "4:3";
 }
 
 
@@ -346,12 +369,26 @@ function takeShot(id, loc, source){
     const w = source.videoWidth || source.naturalWidth;
     const h = source.videoHeight || source.naturalHeight;
 
-    // Ambil layout sesuai rasio
     const ratioKey = getAspectRatio(w, h);
-    console.log("Ukuran:", w, "x", h);
-    console.log("Ratio:", w / h);
-    console.log("Layout:", ratioKey);
-    const layout = layouts[ratioKey] || layouts["4:3"];
+
+    let layout = { ...layouts[ratioKey] };
+
+    const sizeKey = `${w}x${h}`;
+
+    if (customSizes[sizeKey]) {
+        layout = {
+            ...layout,
+            ...customSizes[sizeKey]
+        };
+    }
+
+    // =========================
+    // DEBUG
+    // =========================
+    console.log("Ukuran :", `${w} x ${h}`);
+    console.log("Rasio  :", (w / h).toFixed(3));
+    console.log("Layout :", ratioKey);
+    console.log("Custom :", customSizes[sizeKey] ? sizeKey : "Tidak ada");
 
     canvas.width = w;
     canvas.height = h;
@@ -511,38 +548,5 @@ function takeShot(id, loc, source){
         video.srcObject = null;
         stream = null;
     }
-
-    retakeBtn.addEventListener("click", () => {
-
-    shotImg.style.display = "none";
-    video.style.display = "block";
-
-    frameWrap.style.aspectRatio = defaultAspectRatio;
-
-    hint.style.display = "flex";
-
-    openOptionBtn.style.display = "flex";
-    openOptionBtn.textContent = "📤 Unggah Gambar";
-
-    optionMenu.style.display = "none";
-
-    retakeBtn.style.display = "none";
-    downloadBtn.style.display = "none";
-
-    finalDataUrl = null;
-    statusEl.textContent = "";
-
-    });
-
-    downloadBtn.addEventListener("click", () => {
-
-        if(!finalDataUrl) return;
-
-        const a = document.createElement("a");
-        a.href = finalDataUrl;
-        a.download = `presensi_${Date.now()}.jpg`;
-        a.click();
-
-    });
 
     }
