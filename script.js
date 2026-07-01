@@ -443,15 +443,15 @@ const customSizes = {
     "3024x4032": {
         // 12 MP (banyak Android/iPhone)
         infoX: -3,
-        infoY: 10,
+        infoY: 50,
         infoGap: 8,
 
         logoX: 25,
-        logoY: -35,
+        logoY: -50,
         logoScale:0.47,
 
         locationX: -3,
-        locationY: -35,
+        locationY: -55,
 
         fontDate:15,
         fontId:15,
@@ -645,9 +645,6 @@ function takeShot(id, loc, source){
 
     const logoWidth = w * layout.logoScale;
     const logoHeight = logoWidth * (logo.height / logo.width);
-
-    // Ubah logo menjadi putih (jika logo hitam)
-    ctx.filter = "brightness(0) invert(1)";
 
     ctx.drawImage(
         logo,
