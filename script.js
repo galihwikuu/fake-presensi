@@ -235,20 +235,20 @@ const layouts = {
 
     "4:3":{
 
-        infoX: 0,
+        infoX: 20,
         infoY: 30,
         infoGap: 8,
 
-        logoX: 0,
+        logoX:-12,
         logoY: -40,
-        logoScale: 0.44,
+        logoScale:0.44,
 
-        locationX: 0,
-        locationY: -17,
+        locationX: 20,
+        locationY:-17,
 
-        fontDate: 16,
-        fontId: 15,
-        fontLocation: 15
+        fontDate:16,
+        fontId:15,
+        fontLocation:15
     },
 
     "16:9":{
