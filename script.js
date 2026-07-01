@@ -344,8 +344,11 @@ const layouts = {
 
 const customSizes = {
 
-    "480x640": {
+    // ======================
+    // 4:3
+    // ======================
 
+    "480x640": {
         infoX: -3,
         infoY: 10,
         infoGap: 8,
@@ -360,9 +363,9 @@ const customSizes = {
         fontDate:15,
         fontId:15,
         fontLocation:15,
-
+        // VGA
     },
-    "720x1280": {
+        "720x1280": {
         
         infoX: -3,
         infoY: 10,
@@ -381,8 +384,34 @@ const customSizes = {
 
     },
 
-        "1440x1920": {
-        
+    "768x1024": {
+        // Tablet
+        infoX: -3,
+        infoY: 10,
+        infoGap: 8,
+
+        logoX: 25,
+        logoY: -29,
+        logoScale:0.47,
+
+        locationX: -3,
+        locationY: -35,
+
+        fontDate:15,
+        fontId:15,
+        fontLocation:15,
+    },
+
+    "960x1280": {
+        // HD 4:3
+    },
+
+    "1200x1600": {
+        // 2 MP
+    },
+
+    "1440x1920": {
+        // iPhone Portrait
         infoX: -3,
         infoY: 10,
         infoGap: 8,
@@ -397,11 +426,80 @@ const customSizes = {
         fontDate:15,
         fontId:15,
         fontLocation:15,
+    },
 
-    } 
+    "1536x2048": {
+        // iPad
+    },
+
+    "1944x2592": {
+        // 5 MP
+    },
+
+    "2448x3264": {
+        // 8 MP
+    },
+
+    "3024x4032": {
+        // 12 MP (banyak Android/iPhone)
+        infoX: -3,
+        infoY: 10,
+        infoGap: 8,
+
+        logoX: 25,
+        logoY: -35,
+        logoScale:0.47,
+
+        locationX: -3,
+        locationY: -35,
+
+        fontDate:15,
+        fontId:15,
+        fontLocation:15,
+        
+    },
+
+    "3072x4096": {
+        // 12 MP Samsung
+    },
+
+    "3456x4608": {
+        // 16 MP
+    },
+
+    "4000x3000": {
+        // 12 MP Landscape
+    },
+
+    // ======================
+    // 16:9
+    // ======================
+
+    "640x360": {},
+
+    "854x480": {},
+
+    "1280x720": {},
+
+    "1600x900": {},
+
+    "1920x1080": {},
+
+    "2560x1440": {},
+
+    "3840x2160": {},
+
+    // ======================
+    // 1:1
+    // ======================
+
+    "1080x1080": {},
+
+    "2048x2048": {},
+
+    "3024x3024": {}
 
 };
-
 
 function getAspectRatio(w, h) {
 
