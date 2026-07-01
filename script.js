@@ -217,15 +217,15 @@ const layouts = {
 
     "3:4":{
 
-        infoX:30,
-        infoY:35,
-        infoGap:8,
+        infoX: 20,
+        infoY: 30,
+        infoGap: 8,
 
         logoX:-12,
-        logoY:-5,
+        logoY: -40,
         logoScale:0.44,
 
-        locationX:-8,
+        locationX: 20,
         locationY:-17,
 
         fontDate:16,
@@ -235,20 +235,20 @@ const layouts = {
 
     "4:3":{
 
-        infoX:30,
-        infoY:35,
-        infoGap:8,
+        infoX: 0,
+        infoY: 30,
+        infoGap: 8,
 
-        logoX:-12,
-        logoY:-5,
-        logoScale:0.44,
+        logoX: 0,
+        logoY: -40,
+        logoScale: 0.44,
 
-        locationX:-8,
-        locationY:-17,
+        locationX: 0,
+        locationY: -17,
 
-        fontDate:16,
-        fontId:15,
-        fontLocation:15
+        fontDate: 16,
+        fontId: 15,
+        fontLocation: 15
     },
 
     "16:9":{
@@ -257,12 +257,12 @@ const layouts = {
         infoY: 30,
         infoGap: 8,
 
-        logoX: -12,
-        logoY: -5,
-        logoScale: 0.44,
+        logoX: 0,
+        logoY: -40,
+        logoScale: 0.30,
 
         locationX: 0,
-        locationY: -17,
+        locationY: -5,
 
         fontDate: 16,
         fontId: 15,
@@ -271,33 +271,33 @@ const layouts = {
 
     "9:16":{
 
-        infoX: 0,
+        infoX: 20,
         infoY: 30,
         infoGap: 8,
 
-        logoX: -12,
-        logoY: -5,
-        logoScale: 0.44,
+        logoX:-12,
+        logoY: -40,
+        logoScale:0.44,
 
-        locationX: 0,
-        locationY: -17,
+        locationX: 20,
+        locationY:-17,
 
-        fontDate: 16,
-        fontId: 15,
-        fontLocation: 15
+        fontDate:16,
+        fontId:15,
+        fontLocation:15
     },
 
     "1:1":{
 
-        infoX:30,
-        infoY:35,
-        infoGap:8,
+        infoX: 20,
+        infoY: 30,
+        infoGap: 8,
 
         logoX:-12,
-        logoY:-5,
-        logoScale:0.42,
+        logoY: -40,
+        logoScale:0.44,
 
-        locationX:-8,
+        locationX: 20,
         locationY:-17,
 
         fontDate:16,
@@ -413,7 +413,7 @@ function takeShot(id, loc, source){
     ctx.textAlign = "left";
     ctx.fillStyle = "#fdff63";
 
-    ctx.font = `bold ${fontDate}px Arial`;
+    ctx.font = `${fontDate}px Arial`;
     ctx.fillText(
         `${date}, ${time}`,
         infoX,
@@ -423,7 +423,7 @@ function takeShot(id, loc, source){
     // =========================
     // ID
     // =========================
-    ctx.font = `bold ${fontId}px Arial`;
+    ctx.font = `${fontId}px Arial`;
 
     ctx.fillText(
         id,
@@ -438,20 +438,26 @@ function takeShot(id, loc, source){
     const logoWidth = w * layout.logoScale;
     const logoHeight = logoWidth * (logo.height / logo.width);
 
+    // Ubah logo menjadi putih (jika logo hitam)
+    ctx.filter = "brightness(0) invert(1)";
+
     ctx.drawImage(
         logo,
-        w - logoX - logoWidth,
-        logoY,
+        w - marginX - logoWidth + layout.logoX,
+        infoY + layout.logoY,
         logoWidth,
         logoHeight
     );
+
+    // Kembalikan filter agar tidak mempengaruhi elemen lain
+    ctx.filter = "none";
 
     // =========================
     // LOKASI
     // =========================
 
     ctx.fillStyle = "#fdff63";
-    ctx.font = `bold ${fontLocation}px Arial`;
+    ctx.font = `${fontLocation}px Arial`;
 
     // Paksa Indonesia ke bawah
     const displayLocation =
