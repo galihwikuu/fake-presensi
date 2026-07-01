@@ -1,0 +1,539 @@
+const logo = new Image();
+logo.src = "logo.png";
+
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const shotImg = document.getElementById('shotImg');
+const uploadSrc = document.getElementById('uploadSrc');
+const hint = document.getElementById('hint');
+const camBtn = document.getElementById('camBtn');
+const uploadBtn = document.getElementById('uploadBtn');
+const fileInput = document.getElementById('fileInput');
+const retakeBtn = document.getElementById('retakeBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const statusEl = document.getElementById('status');
+const frameWrap = document.getElementById('frameWrap');
+
+const idSelect = document.getElementById('idSelect');
+const idCustom = document.getElementById('idCustom');
+const locSelect = document.getElementById('locSelect');
+const locCustom = document.getElementById('locCustom');
+
+const openOptionBtn = document.getElementById('openOptionBtn');
+const optionMenu = document.getElementById('optionMenu');
+const defaultAspectRatio = getComputedStyle(frameWrap).aspectRatio;
+
+let stream = null;
+let finalDataUrl = null;
+
+openOptionBtn.addEventListener('click', () => {
+
+    // Kalau kamera sudah aktif → tombol menjadi Ambil Foto
+    if(stream){
+
+        const id = getId();
+        const loc = getLoc();
+
+        if(!id){
+            statusEl.textContent = "Pilih ID terlebih dahulu.";
+            return;
+        }
+
+        if(!loc){
+            statusEl.textContent = "Pilih lokasi terlebih dahulu.";
+            return;
+        }
+
+        takeShot(id, loc, video);
+        return;
+    }
+
+    // Kalau kamera belum aktif → tampilkan dropdown
+    optionMenu.style.display =
+        optionMenu.style.display === "flex"
+            ? "none"
+            : "flex";
+
+});
+ 
+
+idSelect.addEventListener('change', () => {
+  idCustom.style.display = idSelect.value === 'custom' ? 'block' : 'none';
+});
+locSelect.addEventListener('change', () => {
+  locCustom.style.display = locSelect.value === 'custom' ? 'block' : 'none';
+});
+
+function getId(){
+  return idSelect.value === 'custom' ? idCustom.value.trim() : idSelect.value;
+}
+function getLoc(){
+  return locSelect.value === 'custom' ? locCustom.value.trim() : locSelect.value;
+}
+
+uploadBtn.addEventListener('click', () => {
+  optionMenu.style.display="none";
+  fileInput.click();
+});
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const id = getId();
+  const loc = getLoc();
+  if(!id){ statusEl.textContent = 'Pilih atau isi ID terlebih dahulu.'; fileInput.value=''; return; }
+  if(!loc){ statusEl.textContent = 'Pilih atau isi lokasi terlebih dahulu.'; fileInput.value=''; return; }
+  statusEl.textContent = '';
+
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    uploadSrc.onload = () => {
+      // stop camera if running
+      if(stream){
+        stream.getTracks().forEach(t => t.stop());
+        stream = null;
+      }
+      takeShot(id, loc, uploadSrc);
+    };
+    uploadSrc.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+  optionMenu.style.display = "none";
+  fileInput.value = '';
+});
+
+camBtn.addEventListener('click', async () => {
+
+    optionMenu.style.display = "none";
+
+    try{
+
+        stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: "environment",
+
+                width: {
+                    ideal: 1920
+                },
+
+                height: {
+                    ideal: 1440
+                },
+
+                aspectRatio: {
+                    ideal: 4 / 3
+                }
+            },
+
+            audio: false
+        });
+
+        video.srcObject = stream;
+
+        video.onloadedmetadata = () => {
+
+            frameWrap.style.aspectRatio =
+                `${video.videoWidth}/${video.videoHeight}`;
+
+            video.play();
+
+        };
+
+        hint.style.display="none";
+        frameWrap.classList.add("live");
+
+        openOptionBtn.textContent="📸 Ambil Foto";
+
+        statusEl.textContent="";
+
+    }catch(err){
+
+        statusEl.textContent="Tidak bisa mengakses kamera.";
+
+    }
+
+});
+
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+  const words = text.split(' ');
+  let line = '';
+  let lines = [];
+  for(let w of words){
+    const test = line + w + ' ';
+    if(ctx.measureText(test).width > maxWidth && line !== ''){
+      lines.push(line.trim());
+      line = w + ' ';
+    } else {
+      line = test;
+    }
+  }
+  lines.push(line.trim());
+  lines.forEach((l,i) => ctx.fillText(l, x, y + i*lineHeight));
+  return lines.length;
+}
+
+function drawLocation(ctx, text, x, bottom, maxWidth, lineHeight){
+
+    // Pisahkan berdasarkan enter
+    const paragraphs = text.split("\n");
+
+    let lines = [];
+
+    for (const paragraph of paragraphs) {
+
+        const words = paragraph.split(" ");
+        let line = "";
+
+        for (const word of words) {
+
+            const test = line + word + " ";
+
+            if (ctx.measureText(test).width > maxWidth && line !== "") {
+                lines.push(line.trim());
+                line = word + " ";
+            } else {
+                line = test;
+            }
+        }
+
+        if (line.trim() !== "") {
+            lines.push(line.trim());
+        }
+    }
+
+    let y = bottom - (lines.length * lineHeight);
+
+    for (const l of lines) {
+        ctx.fillText(l, x, y);
+        y += lineHeight;
+    }
+}
+
+// ==============================
+// Layout Watermark
+// ==============================
+const layouts = {
+
+    "3:4":{
+
+        infoX:30,
+        infoY:35,
+        infoGap:8,
+
+        logoX:-12,
+        logoY:-5,
+        logoScale:0.44,
+
+        locationX:-8,
+        locationY:-17,
+
+        fontDate:16,
+        fontId:15,
+        fontLocation:15
+    },
+
+    "4:3":{
+
+        infoX:30,
+        infoY:35,
+        infoGap:8,
+
+        logoX:-12,
+        logoY:-5,
+        logoScale:0.44,
+
+        locationX:-8,
+        locationY:-17,
+
+        fontDate:16,
+        fontId:15,
+        fontLocation:15
+    },
+
+    "16:9":{
+
+        infoX: 0,
+        infoY: 30,
+        infoGap: 8,
+
+        logoX: -12,
+        logoY: -5,
+        logoScale: 0.44,
+
+        locationX: 0,
+        locationY: -17,
+
+        fontDate: 16,
+        fontId: 15,
+        fontLocation: 15
+    },
+
+    "9:16":{
+
+        infoX: 0,
+        infoY: 30,
+        infoGap: 8,
+
+        logoX: -12,
+        logoY: -5,
+        logoScale: 0.44,
+
+        locationX: 0,
+        locationY: -17,
+
+        fontDate: 16,
+        fontId: 15,
+        fontLocation: 15
+    },
+
+    "1:1":{
+
+        infoX:30,
+        infoY:35,
+        infoGap:8,
+
+        logoX:-12,
+        logoY:-5,
+        logoScale:0.42,
+
+        locationX:-8,
+        locationY:-17,
+
+        fontDate:16,
+        fontId:15,
+        fontLocation:15
+    }
+
+};
+
+
+function getAspectRatio(w, h){
+
+    const ratio = w / h;
+
+    const ratios = {
+        "1:1": 1,
+        "4:3": 4/3,
+        "3:4": 3/4,
+        "16:9": 16/9,
+        "9:16": 9/16
+    };
+
+    let closest = "4:3";
+    let minDiff = Infinity;
+
+    for(const key in ratios){
+
+        const diff = Math.abs(ratio - ratios[key]);
+
+        if(diff < minDiff){
+            minDiff = diff;
+            closest = key;
+        }
+
+    }
+
+    return closest;
+}
+
+
+function takeShot(id, loc, source){
+
+    // =========================
+    // Ukuran Gambar
+    // =========================
+    const w = source.videoWidth || source.naturalWidth;
+    const h = source.videoHeight || source.naturalHeight;
+
+    // Ambil layout sesuai rasio
+    const ratioKey = getAspectRatio(w, h);
+    const layout = layouts[ratioKey] || layouts["4:3"];
+
+    canvas.width = w;
+    canvas.height = h;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(source, 0, 0, w, h);
+
+    // =========================
+    // Margin Responsif
+    // =========================
+    const marginX = w * 0.03;
+    const marginY = h * 0.03;
+    // =========================
+    // Posisi Watermark
+    // =========================
+// Date & ID
+    const infoX = marginX + layout.infoX;
+    const infoY = marginY + layout.infoY;
+    const infoGap = layout.infoGap;
+
+    // Logo
+    const logoX = marginX + layout.logoX;
+    const logoY = marginY + layout.logoY;
+
+    // Lokasi
+    const locationX = marginX + layout.locationX;
+    const locationY = marginY + layout.locationY;
+
+    // =========================
+    // Ukuran Font
+    // =========================
+    const base = Math.max(w, h);
+
+    const fontDate = Math.max(layout.fontDate, base * 0.020);
+    const fontId = Math.max(layout.fontId, base * 0.018);
+    const fontLocation = Math.max(layout.fontLocation, base * 0.018);
+
+    // =========================
+    // Shadow
+    // =========================
+    ctx.shadowColor = "rgba(0,0,0,.8)";
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+
+    // =========================
+    // DATE & TIME
+    // =========================
+    const now = new Date();
+
+    const date = now.toLocaleDateString("en-GB",{
+        day:"2-digit",
+        month:"short",
+        year:"numeric"
+    });
+
+    const time = now.toLocaleTimeString("en-GB",{
+        hour:"2-digit",
+        minute:"2-digit"
+    });
+
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#fdff63";
+
+    ctx.font = `bold ${fontDate}px Arial`;
+    ctx.fillText(
+        `${date}, ${time}`,
+        infoX,
+        infoY
+    );
+
+    // =========================
+    // ID
+    // =========================
+    ctx.font = `bold ${fontId}px Arial`;
+
+    ctx.fillText(
+        id,
+        infoX,
+        infoY + fontDate + infoGap
+    );
+
+    // =========================
+    // LOGO PNG
+    // =========================
+
+    const logoWidth = w * layout.logoScale;
+    const logoHeight = logoWidth * (logo.height / logo.width);
+
+    ctx.drawImage(
+        logo,
+        w - logoX - logoWidth,
+        logoY,
+        logoWidth,
+        logoHeight
+    );
+
+    // =========================
+    // LOKASI
+    // =========================
+
+    ctx.fillStyle = "#fdff63";
+    ctx.font = `bold ${fontLocation}px Arial`;
+
+    // Paksa Indonesia ke bawah
+    const displayLocation =
+        loc.replace(", Indonesia", ",\nIndonesia");
+
+    drawLocation(
+        ctx,
+        displayLocation,
+        locationX,
+        h - locationY,
+        w - locationX * 2,
+        fontLocation * 1.2
+    );
+
+    // =========================
+    // Reset Shadow
+    // =========================
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+
+    // =========================
+    // Simpan Hasil
+    // =========================
+    finalDataUrl = canvas.toDataURL("image/jpeg", 0.95);
+
+    shotImg.onload = () => {
+        frameWrap.style.aspectRatio =
+            `${shotImg.naturalWidth}/${shotImg.naturalHeight}`;
+    };
+
+    shotImg.src = finalDataUrl;
+
+    shotImg.style.display = "block";
+    video.style.display = "none";
+    hint.style.display = "none";
+
+    openOptionBtn.style.display = "none";
+    optionMenu.style.display = "none";
+
+    retakeBtn.style.display = "flex";
+    downloadBtn.style.display = "flex";
+
+    frameWrap.classList.remove("live");
+
+    if(stream){
+        stream.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+        stream = null;
+    }
+
+    retakeBtn.addEventListener("click", () => {
+
+    shotImg.style.display = "none";
+    video.style.display = "block";
+
+    frameWrap.style.aspectRatio = defaultAspectRatio;
+
+    hint.style.display = "flex";
+
+    openOptionBtn.style.display = "flex";
+    openOptionBtn.textContent = "📤 Unggah Gambar";
+
+    optionMenu.style.display = "none";
+
+    retakeBtn.style.display = "none";
+    downloadBtn.style.display = "none";
+
+    finalDataUrl = null;
+    statusEl.textContent = "";
+
+    });
+
+    downloadBtn.addEventListener("click", () => {
+
+        if(!finalDataUrl) return;
+
+        const a = document.createElement("a");
+        a.href = finalDataUrl;
+        a.download = `presensi_${Date.now()}.jpg`;
+        a.click();
+
+    });
+
+    }
