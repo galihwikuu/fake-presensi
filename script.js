@@ -379,6 +379,25 @@ const customSizes = {
         fontId:15,
         fontLocation:15,
 
+    },
+
+        "1440x1920": {
+        
+        infoX: -3,
+        infoY: 10,
+        infoGap: 8,
+
+        logoX: 25,
+        logoY: -35,
+        logoScale:0.47,
+
+        locationX: -3,
+        locationY: -35,
+
+        fontDate:15,
+        fontId:15,
+        fontLocation:15,
+
     } 
 
 };
