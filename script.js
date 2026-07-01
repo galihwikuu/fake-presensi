@@ -1,5 +1,5 @@
 const logo = new Image();
-logo.src = "logo.png";
+logo.src = "logo-putih.png";
 
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
@@ -13,6 +13,7 @@ const retakeBtn = document.getElementById('retakeBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 const statusEl = document.getElementById('status');
 const frameWrap = document.getElementById('frameWrap');
+const backBtn = document.getElementById("backBtn");
 
 const idSelect = document.getElementById('idSelect');
 const idCustom = document.getElementById('idCustom');
@@ -130,19 +131,18 @@ camBtn.addEventListener('click', async () => {
 
         video.srcObject = stream;
 
-        video.onloadedmetadata = () => {
+        await video.play();
 
-            frameWrap.style.aspectRatio =
-                `${video.videoWidth}/${video.videoHeight}`;
+        frameWrap.style.aspectRatio =
+            `${video.videoWidth}/${video.videoHeight}`;
 
-            video.play();
-
-        };
+        video.style.display = "block";
 
         hint.style.display="none";
         frameWrap.classList.add("live");
 
         openOptionBtn.textContent="📸 Ambil Foto";
+        backBtn.style.display = "flex";
 
         statusEl.textContent="";
 
@@ -151,6 +151,34 @@ camBtn.addEventListener('click', async () => {
         statusEl.textContent="Tidak bisa mengakses kamera.";
 
     }
+
+});
+
+backBtn.addEventListener("click", () => {
+
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+        stream = null;
+    }
+
+    video.pause();
+
+    video.style.display = "none";
+    shotImg.style.display = "none";
+
+    frameWrap.style.aspectRatio = defaultAspectRatio;
+    frameWrap.classList.remove("live");
+
+    hint.style.display = "flex";
+
+    openOptionBtn.style.display = "flex";
+    openOptionBtn.textContent = "📤 Unggah Gambar";
+
+    optionMenu.style.display = "none";
+    backBtn.style.display = "none";
+
+    statusEl.textContent = "";
 
 });
 
@@ -168,6 +196,8 @@ retakeBtn.addEventListener("click", () => {
 
     openOptionBtn.style.display = "flex";
     openOptionBtn.textContent = "📤 Unggah Gambar";
+
+    backBtn.style.display = "none";
 
     optionMenu.style.display = "none";
 
@@ -237,56 +267,59 @@ const layouts = {
 
     "4:3":{
 
-        infoX: 20,
-        infoY: 30,
+        infoX: -3,
+        infoY: 10,
         infoGap: 8,
 
-        logoX:-12,
-        logoY: -40,
-        logoScale:0.44,
+        logoX: 20,
+        logoY: -15,
+        logoScale:0.47,
 
-        locationX: 20,
+        locationX: -3,
         locationY:-17,
 
-        fontDate:16,
+        fontDate:15,
         fontId:15,
         fontLocation:15
+
     },
 
     "16:9":{
 
-        infoX: 0,
-        infoY: 30,
+        infoX: -3,
+        infoY: 10,
         infoGap: 8,
 
-        logoX: 0,
-        logoY: -40,
-        logoScale: 0.30,
+        logoX: 20,
+        logoY: -15,
+        logoScale:0.30,
 
-        locationX: 0,
-        locationY: -5,
+        locationX: -3,
+        locationY:-17,
 
-        fontDate: 16,
-        fontId: 15,
-        fontLocation: 15
+        fontDate:15,
+        fontId:15,
+        fontLocation:15
+
     },
 
     "9:16":{
 
-        infoX: 20,
-        infoY: 30,
+        infoX: -3,
+        infoY: 10,
         infoGap: 8,
 
-        logoX:-12,
-        logoY: -40,
-        logoScale:0.44,
+        logoX: 10,
+        logoY: -15,
+        logoScale:0.47,
 
-        locationX: 20,
+        locationX: -3,
         locationY:-17,
 
-        fontDate:16,
+        fontDate:15,
         fontId:15,
         fontLocation:15
+
     },
 
     "1:1":{
@@ -297,7 +330,7 @@ const layouts = {
 
         logoX:-12,
         logoY: -40,
-        logoScale:0.44,
+        logoScale:0.4,
 
         locationX: 20,
         locationY:-17,
@@ -313,22 +346,40 @@ const customSizes = {
 
     "480x640": {
 
-        infoX:100,
-        infoY:30,
-        infoGap:8,
+        infoX: -3,
+        infoY: 10,
+        infoGap: 8,
 
-        logoX:-12,
-        logoY:-40,
-        logoScale:0.44,
+        logoX: 20,
+        logoY: -15,
+        logoScale:0.47,
 
-        locationX:20,
+        locationX: -3,
         locationY:-17,
 
-        fontDate:16,
+        fontDate:15,
         fontId:15,
-        fontLocation:15
+        fontLocation:15,
 
-    }
+    },
+    "720x1280": {
+        
+        infoX: -3,
+        infoY: 10,
+        infoGap: 8,
+
+        logoX: 25,
+        logoY: -29,
+        logoScale:0.47,
+
+        locationX: -3,
+        locationY: -35,
+
+        fontDate:15,
+        fontId:15,
+        fontLocation:15,
+
+    } 
 
 };
 
@@ -536,7 +587,9 @@ function takeShot(id, loc, source){
     hint.style.display = "none";
 
     openOptionBtn.style.display = "none";
+    backBtn.style.display = "none";
     optionMenu.style.display = "none";
+    
 
     retakeBtn.style.display = "flex";
     downloadBtn.style.display = "flex";
