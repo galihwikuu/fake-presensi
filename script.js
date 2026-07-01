@@ -348,6 +348,9 @@ function takeShot(id, loc, source){
 
     // Ambil layout sesuai rasio
     const ratioKey = getAspectRatio(w, h);
+    console.log("Ukuran:", w, "x", h);
+    console.log("Ratio:", w / h);
+    console.log("Layout:", ratioKey);
     const layout = layouts[ratioKey] || layouts["4:3"];
 
     canvas.width = w;
