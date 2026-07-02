@@ -271,16 +271,16 @@ const layouts = {
         infoY: 10,
         infoGap: 8,
 
-        logoX: 20,
-        logoY: -15,
-        logoScale:0.47,
+        logoX: 25,
+        logoY: -35,
+        logoScale:0.30,
 
         locationX: -3,
-        locationY:-17,
+        locationY: -35,
 
         fontDate:15,
         fontId:15,
-        fontLocation:15
+        fontLocation:15,
 
     },
 
@@ -404,10 +404,38 @@ const customSizes = {
 
     "960x1280": {
         // HD 4:3
+        infoX: -3,
+        infoY: 10,
+        infoGap: 8,
+
+        logoX: 25,
+        logoY: -35,
+        logoScale:0.30,
+
+        locationX: -3,
+        locationY: -35,
+
+        fontDate:15,
+        fontId:15,
+        fontLocation:15,
     },
 
     "1200x1600": {
         // 2 MP
+        infoX: -3,
+        infoY: 10,
+        infoGap: 8,
+
+        logoX: 25,
+        logoY: -35,
+        logoScale:0.30,
+
+        locationX: -3,
+        locationY: -35,
+
+        fontDate:15,
+        fontId:15,
+        fontLocation:15,
     },
 
     "1440x1920": {
@@ -419,6 +447,22 @@ const customSizes = {
         logoX: 25,
         logoY: -35,
         logoScale:0.47,
+
+        locationX: -3,
+        locationY: -35,
+
+        fontDate:15,
+        fontId:15,
+        fontLocation:15,
+    },
+    "1920x1440": {
+        infoX: -3,
+        infoY: 10,
+        infoGap: 8,
+
+        logoX: 25,
+        logoY: -35,
+        logoScale:0.30,
 
         locationX: -3,
         locationY: -35,
