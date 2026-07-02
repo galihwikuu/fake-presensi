@@ -4,9 +4,58 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <title>Presensi Foto</title>
 </head>
 <body>
+<div id="lockScreen">
+
+    <div class="lock-card">
+
+        <div class="lock-logo">
+            🔒
+        </div>
+
+        <h2>Natra Fake Presence</h2>
+
+        <p>Masukkan PIN untuk melanjutkan</p>
+
+        <div id="pinDots" class="pin-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="pin-pad">
+
+            <button class="pin-btn" data-num="1">1</button>
+            <button class="pin-btn" data-num="2">2</button>
+            <button class="pin-btn" data-num="3">3</button>
+
+            <button class="pin-btn" data-num="4">4</button>
+            <button class="pin-btn" data-num="5">5</button>
+            <button class="pin-btn" data-num="6">6</button>
+
+            <button class="pin-btn" data-num="7">7</button>
+            <button class="pin-btn" data-num="8">8</button>
+            <button class="pin-btn" data-num="9">9</button>
+
+            <button id="pinDelete">⌫</button>
+            <button class="pin-btn" data-num="0">0</button>
+            <button id="pinEnter">✓</button>
+
+        </div>
+
+        <div id="pinStatus"></div>
+
+    </div>
+
+</div>
+
+<div id="app" style="display:none;">
 
 <header>
   <h1>Natra Fake Presence</h1>
@@ -43,7 +92,16 @@
     </div>
     <input type="text" id="locCustom" placeholder="Masukkan lokasi" style="display:none;">
   </div>
+
+  <div class="field">
+    <label for="dateInput">Tanggal Presensi</label>
+    <input
+        type="text"
+        id="dateInput">
 </div>
+</div>
+
+
 
 <div class="frame-wrap" id="frameWrap">
   <video id="video" autoplay playsinline muted></video>
@@ -96,7 +154,9 @@
 <div class="footer-note">Foto diproses langsung di perangkat — tidak diunggah ke server mana pun.</div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="script.js"></script>
 
+</div>
 </body>
 </html>

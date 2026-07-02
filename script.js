@@ -19,13 +19,40 @@ const idSelect = document.getElementById('idSelect');
 const idCustom = document.getElementById('idCustom');
 const locSelect = document.getElementById('locSelect');
 const locCustom = document.getElementById('locCustom');
+const dateInput = document.getElementById('dateInput');
+const fp = flatpickr(dateInput, {
+    dateFormat: "d/m/Y",
+    defaultDate: "today"
+});
+console.log("Isi:", `"${dateInput.value}"`);
 
 const openOptionBtn = document.getElementById('openOptionBtn');
 const optionMenu = document.getElementById('optionMenu');
 const defaultAspectRatio = getComputedStyle(frameWrap).aspectRatio;
 
+const today = new Date();
+dateInput.value = today.toISOString().split("T")[0];
+
 let stream = null;
 let finalDataUrl = null;
+
+// ==============================
+// LOCK SCREEN
+// ==============================
+
+const app = document.getElementById("app");
+const lockScreen = document.getElementById("lockScreen");
+
+const pinDots = document.querySelectorAll(".pin-dots span");
+const pinButtons = document.querySelectorAll(".pin-btn");
+
+const pinDelete = document.getElementById("pinDelete");
+const pinEnter = document.getElementById("pinEnter");
+const pinStatus = document.getElementById("pinStatus");
+
+const PIN = "123456";
+
+let currentPin = "";
 
 openOptionBtn.addEventListener('click', () => {
 
@@ -259,6 +286,67 @@ function drawLocation(ctx, text, x, bottom, maxWidth, lineHeight){
         y += lineHeight;
     }
 }
+
+// PIN LOCK SCREEN
+
+function updateDots(){
+
+    pinDots.forEach((dot,index)=>{
+
+        dot.classList.toggle("active",index<currentPin.length);
+
+    });
+
+}
+
+pinButtons.forEach(btn=>{
+
+    btn.onclick=()=>{
+
+        if(currentPin.length>=6) return;
+
+        currentPin+=btn.dataset.num;
+
+        updateDots();
+
+    };
+
+});
+
+pinDelete.onclick=()=>{
+
+    currentPin=currentPin.slice(0,-1);
+
+    updateDots();
+
+};
+
+pinEnter.onclick=()=>{
+
+    if(currentPin===PIN){
+
+        lockScreen.style.display="none";
+
+        app.style.display="block";
+
+    }else{
+
+        pinStatus.textContent = "PIN salah";
+        pinStatus.classList.add("show");
+
+        currentPin = "";
+        updateDots();
+
+        setTimeout(() => {
+
+            pinStatus.classList.remove("show");
+            pinStatus.textContent = "";
+
+        }, 3000);
+
+    }
+
+};
 
 // ==============================
 // Layout Watermark
@@ -727,17 +815,21 @@ function takeShot(id, loc, source){
     // =========================
     // DATE & TIME
     // =========================
+    // Jam realtime
     const now = new Date();
+    console.log(dateInput.value);
 
-    const date = now.toLocaleDateString("en-GB",{
-        day:"2-digit",
-        month:"short",
-        year:"numeric"
+    let selectedDate = fp.selectedDates[0] || now;
+
+    const date = selectedDate.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
     });
 
-    const time = now.toLocaleTimeString("en-GB",{
-        hour:"2-digit",
-        minute:"2-digit"
+    const time = now.toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit"
     });
 
     ctx.textAlign = "left";
