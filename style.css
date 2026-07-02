@@ -327,10 +327,19 @@ canvas{
 ========================== */
 
 .date-wrap{
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden; /* jaga-jaga */
     position:relative;
 }
 
 .date-wrap input{
+
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    max-width: 100%;
 
     width:100%;
 
@@ -349,6 +358,7 @@ canvas{
     font-size:14px;
 
     transition:.2s;
+
 
 }
 
