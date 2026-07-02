@@ -945,3 +945,34 @@ function takeShot(id, loc, source){
     }
 
     }
+    
+// ===== Disable zoom di seluruh app =====
+
+// Block pinch-zoom (2 jari)
+document.addEventListener('touchmove', function(e){
+    if (e.touches.length > 1) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+// Block double-tap zoom
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e){
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+    }
+    lastTouchEnd = now;
+}, { passive: false });
+
+// Block ctrl+scroll zoom di desktop browser
+document.addEventListener('wheel', function(e){
+    if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+// Block gesturestart (Safari khusus)
+document.addEventListener('gesturestart', function(e){
+    e.preventDefault();
+});
