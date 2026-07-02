@@ -304,21 +304,36 @@ const layouts = {
     },
 
     "9:16":{
-
         infoX: -3,
         infoY: 10,
         infoGap: 8,
 
-        logoX: 10,
-        logoY: -15,
+        logoX: 25,
+        logoY: -35,
         logoScale:0.47,
 
         locationX: -3,
-        locationY:-17,
+        locationY: -35,
 
         fontDate:15,
         fontId:15,
-        fontLocation:15
+        fontLocation:15,
+    },
+    "1920x1440": {
+        infoX: -3,
+        infoY: 10,
+        infoGap: 8,
+
+        logoX: 25,
+        logoY: -35,
+        logoScale:0.30,
+
+        locationX: -3,
+        locationY: -35,
+
+        fontDate:15,
+        fontId:15,
+        fontLocation:15,
 
     },
 
