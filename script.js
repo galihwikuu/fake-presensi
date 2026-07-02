@@ -960,4 +960,27 @@ function takeShot(id, loc, source){
         video.srcObject = null;
         stream = null;
     }
-}
+
+    }
+
+// ===== Disable zoom di seluruh app =====
+
+// Block pinch-zoom (2 jari)
+document.addEventListener('touchmove', function(e){
+    if (e.touches.length > 1) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+// Block gesturestart (Safari khusus)
+document.addEventListener('gesturestart', function(e){
+    e.preventDefault();
+});
+
+// Block ctrl+scroll zoom desktop
+document.addEventListener('wheel', function(e){
+    if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
