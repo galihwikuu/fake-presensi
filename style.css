@@ -4,6 +4,8 @@
       overflow: auto;
       -ms-overflow-style: none;  /* IE & Edge lama */
       scrollbar-width: none;     /* Firefox */
+      touch-action: manipulation;
+      overscroll-behavior: none;
   }
 
   html::-webkit-scrollbar,
@@ -563,3 +565,9 @@ canvas{
     opacity:1;
 }
 
+button,
+.pin-btn,
+select,
+input{
+    touch-action: manipulation;
+}
