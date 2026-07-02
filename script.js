@@ -308,7 +308,7 @@ const layouts = {
 
         logoX: -10,
         logoY: -10,
-        logoScale:0.35,
+        logoScale:0.40,
 
         locationX: -3,
         locationY: -35,
