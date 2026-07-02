@@ -64,20 +64,27 @@
 
 <div class="panel">
   <h2>Data Presensi</h2>
-  <div class="field">
-    <label for="idSelect">ID Pegawai</label>
-    <div class="select-wrap">
-      <select id="idSelect">
-        <option value="">— Pilih ID —</option>
-        <option value="***9001">***9001</option>
-        <option value="***9002">***9002</option>
-        <option value="***9003">***9003</option>
-        <option value="***9004">***9004</option>
-        <option value="custom">ID Lainnya…</option>
-      </select>
+    <div class="field">
+        <label for="idSelect">ID Pegawai</label>
+        <div class="select-wrap">
+        <select id="idSelect">
+            <option value="">— Pilih ID —</option>
+            <option value="***1008">***1008</option>
+            <option value="***8328">***8328</option>
+            <option value="***8005">***8005</option>
+            <option value="***4514">***4514</option>
+            <option value="***0004">***0004</option>
+            <option value="***9004">***9004</option>
+            <option value="***2009">***2009</option>
+            <option value="custom">ID Lainnya…</option>
+        </select>
+        </div>
+
+        <div class="custom-id-wrap" id="idCustomWrap" style="display:none;">
+            <span class="id-prefix">***</span>
+            <input type="text" id="idCustom" placeholder="0000" inputmode="numeric" maxlength="4">
+        </div>
     </div>
-    <input type="text" id="idCustom" placeholder="Masukkan ID" style="display:none;">
-  </div>
 
   <div class="field">
     <label for="locSelect">Lokasi</label>
@@ -87,6 +94,8 @@
         <option value="Tuban, Kuta, Badung, Bali, Nusa Tenggara, 80361, Indonesia">Bandara I Gusti Ngurah Rai, Tuban, Bali</option>
         <option value="Kemayoran, Jakarta Pusat, DKI Jakarta, Indonesia">Bandara Soekarno-Hatta, Jakarta</option>
         <option value="Sukolilo, Surabaya, Jawa Timur, Indonesia">Bandara Juanda, Surabaya</option>
+        <option value="Pranti, Sedati, Sidoarjo, Jawa Timur, 61253, Indonesia">Pranti, Sedati, Sidoarjo, Jawa Timur, 61253</option>
+        <option value="Segoro Tambak, Sedati, Sidoarjo, Jawa Timur, 61253, Indonesia">Segoro Tambak, Sedati, Sidoarjo, Jawa Timur, 61253</option>
         <option value="custom">Lokasi Lainnya…</option>
       </select>
     </div>

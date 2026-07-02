@@ -85,16 +85,33 @@ openOptionBtn.addEventListener('click', () => {
 });
  
 
+const idCustomWrap = document.getElementById('idCustomWrap');
+
 idSelect.addEventListener('change', () => {
-  idCustom.style.display = idSelect.value === 'custom' ? 'block' : 'none';
+    if (idSelect.value === 'custom') {
+        idCustomWrap.style.display = 'flex';
+        idCustom.focus();
+    } else {
+        idCustomWrap.style.display = 'none';
+        idCustom.value = '';
+    }
 });
+
+// filter cuma angka doang yang bisa diketik
+idCustom.addEventListener('input', function(e){
+    e.target.value = e.target.value.replace(/\D/g, '');
+});
+
 locSelect.addEventListener('change', () => {
   locCustom.style.display = locSelect.value === 'custom' ? 'block' : 'none';
 });
 
 function getId(){
-  return idSelect.value === 'custom' ? idCustom.value.trim() : idSelect.value;
+  return idSelect.value === 'custom'
+    ? (idCustom.value.trim() ? '***' + idCustom.value.trim() : '')
+    : idSelect.value;
 }
+
 function getLoc(){
   return locSelect.value === 'custom' ? locCustom.value.trim() : locSelect.value;
 }

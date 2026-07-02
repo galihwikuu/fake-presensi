@@ -323,7 +323,47 @@ canvas{
   border-bottom:1px solid var(--line);
 
 }
+/* ID INPUT MANUAL */
+.custom-id-wrap{
+    display:flex;
+    align-items:center;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:0 16px;
+    height:50px;
+    margin-top:10px;
+    transition:.2s;
+}
+.custom-id-wrap:focus-within{
+    border-color:var(--accent-2);
+    box-shadow:0 0 0 3px rgba(124,156,255,.18);
+}
+.custom-id-wrap .id-prefix{
+    color:var(--muted);
+    font-size:14px;
+    margin-right:2px;
+    user-select:none;
+}
+.custom-id-wrap input{
+    border:none;
+    background:transparent;
+    color:var(--text);
+    font-size:14px;
+    flex:1;
+    outline:none;
+    height:100%;
+    padding:0;          /* reset dari rule global */
+    margin-top:0;        /* reset dari rule global */
+    border-radius:0;     /* reset dari rule global */
+    touch-action: manipulation;
+}
 
+.custom-id-wrap input:focus{
+    border:none;
+    box-shadow:none;
+    outline:none;
+}
 /* ==========================
    DATE INPUT
 ========================== */
