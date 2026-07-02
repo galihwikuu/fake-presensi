@@ -285,32 +285,30 @@ const layouts = {
     },
 
     "16:9":{
-
-        infoX: -3,
-        infoY: 10,
-        infoGap: 8,
-
-        logoX: 20,
-        logoY: -15,
-        logoScale:0.30,
-
-        locationX: -3,
-        locationY:-17,
-
-        fontDate:15,
-        fontId:15,
-        fontLocation:15
-
-    },
-
-    "9:16":{
         infoX: -3,
         infoY: 10,
         infoGap: 8,
 
         logoX: 25,
         logoY: -35,
-        logoScale:0.70,
+        logoScale:0.47,
+
+        locationX: -3,
+        locationY: -35,
+
+        fontDate:15,
+        fontId:15,
+        fontLocation:15,
+
+    },
+    "9:16":{
+        infoX: -3,
+        infoY: 10,
+        infoGap: 8,
+
+        logoX: -10,
+        logoY: -10,
+        logoScale:0.35,
 
         locationX: -3,
         locationY: -35,
@@ -621,25 +619,24 @@ function getAspectRatio(w, h) {
 
     const ratio = w / h;
 
-    // 1:1
     if (Math.abs(ratio - 1) < 0.08)
         return "1:1";
 
-    // Keluarga 4:3 (landscape & portrait)
-    if (
-        Math.abs(ratio - (4/3)) < 0.08 ||
-        Math.abs(ratio - (3/4)) < 0.08
-    ){
+    // 4:3 Landscape
+    if (Math.abs(ratio - (4/3)) < 0.08)
         return "4:3";
-    }
 
-    // Keluarga 16:9 (landscape & portrait)
-    if (
-        Math.abs(ratio - (16/9)) < 0.10 ||
-        Math.abs(ratio - (9/16)) < 0.10
-    ){
+    // 3:4 Portrait
+    if (Math.abs(ratio - (3/4)) < 0.08)
+        return "3:4";
+
+    // 16:9 Landscape
+    if (Math.abs(ratio - (16/9)) < 0.10)
         return "16:9";
-    }
+
+    // 9:16 Portrait
+    if (Math.abs(ratio - (9/16)) < 0.10)
+        return "9:16";
 
     return "4:3";
 }
@@ -685,30 +682,41 @@ function takeShot(id, loc, source){
     // =========================
     const marginX = w * 0.03;
     const marginY = h * 0.03;
-    // =========================
-    // Posisi Watermark
-    // =========================
-// Date & ID
-    const infoX = marginX + layout.infoX;
-    const infoY = marginY + layout.infoY;
-    const infoGap = layout.infoGap;
 
-    // Logo
-    const logoX = marginX + layout.logoX;
-    const logoY = marginY + layout.logoY;
+    let infoX, infoY, infoGap;
+    let logoX, logoY;
+    let locationX, locationY;
 
-    // Lokasi
-    const locationX = marginX + layout.locationX;
-    const locationY = marginY + layout.locationY;
+    infoX = marginX + layout.infoX;
+    infoY = marginY + layout.infoY;
+    infoGap = layout.infoGap;
+
+    logoX = marginX + layout.logoX;
+    logoY = marginY + layout.logoY;
+
+    locationX = marginX + layout.locationX;
+    locationY = marginY + layout.locationY;
 
     // =========================
     // Ukuran Font
     // =========================
-    const base = Math.max(w, h);
+    let fontDate, fontId, fontLocation;
 
-    const fontDate = Math.max(layout.fontDate, base * 0.020);
-    const fontId = Math.max(layout.fontId, base * 0.018);
-    const fontLocation = Math.max(layout.fontLocation, base * 0.018);
+    if (ratioKey === "9:16") {
+
+        fontDate = w * 0.022;
+        fontId = w * 0.020;
+        fontLocation = w * 0.020;
+
+    } else {
+
+        const base = Math.max(w, h);
+
+        fontDate = Math.max(layout.fontDate, base * 0.020);
+        fontId = Math.max(layout.fontId, base * 0.018);
+        fontLocation = Math.max(layout.fontLocation, base * 0.018);
+
+    }
 
     // =========================
     // Shadow
@@ -762,13 +770,27 @@ function takeShot(id, loc, source){
     const logoWidth = w * layout.logoScale;
     const logoHeight = logoWidth * (logo.height / logo.width);
 
-    ctx.drawImage(
-        logo,
-        w - marginX - logoWidth + layout.logoX,
-        infoY + layout.logoY,
-        logoWidth,
-        logoHeight
-    );
+    if (ratioKey === "9:16") {
+
+        ctx.drawImage(
+            logo,
+            w - logoX - logoWidth,
+            logoY,
+            logoWidth,
+            logoHeight
+        );
+
+    } else {
+
+        ctx.drawImage(
+            logo,
+            w - marginX - logoWidth + layout.logoX,
+            infoY + layout.logoY,
+            logoWidth,
+            logoHeight
+        );
+
+    }
 
     // Kembalikan filter agar tidak mempengaruhi elemen lain
     ctx.filter = "none";
