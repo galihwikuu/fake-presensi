@@ -395,8 +395,8 @@ const layouts = {
         infoGap: 8,
 
         logoX: -10,
-        logoY: -10,
-        logoScale:0.40,
+        logoY: -25,
+        logoScale:0.45,
 
         locationX: -3,
         locationY: -35,
@@ -472,15 +472,15 @@ const customSizes = {
         infoGap: 8,
 
         logoX: -10,
-        logoY: -10,
-        logoScale:0.35,
+        logoY: -15,
+        logoScale:0.45,
 
         locationX: -3,
         locationY: -35,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:30,
+        fontId:30,
+        fontLocation:30,
     },
 
     "768x1024": {
@@ -559,16 +559,16 @@ const customSizes = {
         infoY: 10,
         infoGap: 8,
 
-        logoX: 25,
-        logoY: -35,
-        logoScale:0.30,
+        logoX: -10,
+        logoY: -25,
+        logoScale:0.45,
 
         locationX: -3,
         locationY: -35,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:30,
+        fontId:30,
+        fontLocation:30,
     },
 
     "1536x2048": {
@@ -790,9 +790,9 @@ function takeShot(id, loc, source){
 
     if (ratioKey === "9:16") {
 
-        fontDate = w * 0.022;
-        fontId = w * 0.020;
-        fontLocation = w * 0.020;
+        fontDate = w * 0.030;
+        fontId = w * 0.030;
+        fontLocation = w * 0.030;
 
     } else {
 
