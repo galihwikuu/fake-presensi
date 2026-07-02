@@ -290,11 +290,11 @@ const layouts = {
         infoGap: 8,
 
         logoX: 25,
-        logoY: -35,
-        logoScale:0.47,
+        logoY: -20,
+        logoScale:0.35,
 
         locationX: -3,
-        locationY: -35,
+        locationY: -20,
 
         fontDate:15,
         fontId:15,
