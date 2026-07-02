@@ -4,7 +4,6 @@
       overflow: auto;
       -ms-overflow-style: none;  /* IE & Edge lama */
       scrollbar-width: none;     /* Firefox */
-      touch-action: manipulation;
       overscroll-behavior: none;
   }
 
