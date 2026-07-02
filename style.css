@@ -1,5 +1,16 @@
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  html,
+  body {
+      overflow: auto;
+      -ms-overflow-style: none;  /* IE & Edge lama */
+      scrollbar-width: none;     /* Firefox */
+  }
 
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+      display: none;             /* Chrome, Edge, Safari, Opera */
+  }
+  
   :root{
     --bg-0:#0b0e14;
     --bg-1:#11151d;
@@ -307,5 +318,7 @@ canvas{
 }
 
 .option-menu button:not(:last-child){
-    border-bottom:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+
 }
+
