@@ -1,5 +1,5 @@
 const logo = new Image();
-logo.src = "logo-putih.png";
+logo.src = "logo-putih 2.png";
 
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
