@@ -550,14 +550,14 @@ const customSizes = {
 
         logoX: 35,
         logoY: -32,
-        logoScale:0.47,
+        logoScale:0.46,
 
         locationX: -7,
         locationY:-40,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:13,
+        fontId:13,
+        fontLocation:13,
         // VGA
     },
         "720x1280": {
@@ -904,16 +904,17 @@ function takeShot(id, loc, source){
     fillStyle: ctx.fillStyle,
     globalAlpha: ctx.globalAlpha,
     filter: ctx.filter
-    });
+});
 
-    // =========================
-    // Shadow
-    // =========================
-    ctx.shadowColor = "rgba(0,0,0,.8)";
-    ctx.shadowBlur = 8;
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 2;
+// =========================
+// Shadow
+// =========================
+ctx.shadowColor = "rgba(0,0,0,.8)";
+ctx.shadowBlur = 8;
+ctx.shadowOffsetX = 2;
+ctx.shadowOffsetY = 2;
 
+ctx.filter = "blur(0.8px)";
     // =========================
     // DATE & TIME
     // =========================
@@ -935,7 +936,7 @@ function takeShot(id, loc, source){
     });
 
     ctx.textAlign = "left";
-    ctx.fillStyle = "#DCE119";
+    ctx.fillStyle = "#e7eb10";
 
     ctx.font = `${fontDate}px Arial`;
     ctx.fillText(
@@ -953,6 +954,7 @@ function takeShot(id, loc, source){
         infoX,
         infoY + fontDate + infoGap
     );
+    
 
     // =========================
     // LOGO PNG
@@ -983,14 +985,12 @@ function takeShot(id, loc, source){
 
     }
 
-    // Kembalikan filter agar tidak mempengaruhi elemen lain
-    ctx.filter = "none";
 
     // =========================
     // LOKASI
     // =========================
 
-    ctx.fillStyle = "#DCE119";
+    ctx.fillStyle = "#e7eb10";
     ctx.font = `${fontLocation}px Arial`;
 
     // Paksa Indonesia ke bawah
@@ -1004,6 +1004,8 @@ function takeShot(id, loc, source){
         outW * 0.90,
         fontLocation * 1.2
     );
+    // kembalikan filter
+    ctx.filter = "none";
 
     // =========================
     // Reset Shadow
