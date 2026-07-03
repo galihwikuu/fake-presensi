@@ -1,5 +1,5 @@
 const logo = new Image();
-logo.src = "IMG_1665.png";
+logo.src = "logo-putih.png";
 
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
@@ -471,9 +471,9 @@ const layouts = {
         infoY: 50,
         infoGap: 8,
 
-        logoX: 25,
+        logoX: 60,
         logoY: -50,
-        logoScale:0.35,
+        logoScale:0.42,
 
         locationX: -3,
         locationY: -20,
@@ -548,9 +548,9 @@ const customSizes = {
         infoY: 20,
         infoGap: 8,
 
-        logoX: 32,
-        logoY: -34,
-        logoScale:0.47,
+        logoX: 60,
+        logoY: -37,
+        logoScale:0.52,
 
         locationX: -7,
         locationY:-40,
@@ -738,22 +738,22 @@ const customSizes = {
 
     "854x480": {},
 
-    "1280x720": {
-        infoX: -7,
-        infoY: 20,
-        infoGap: 8,
+    // "1280x720": {
+    //     infoX: -7,
+    //     infoY: 20,
+    //     infoGap: 8,
 
-        logoX: 32,
-        logoY: -34,
-        logoScale:0.47,
+    //     logoX: 32,
+    //     logoY: -34,
+    //     logoScale:0.47,
 
-        locationX: -7,
-        locationY:-40,
+    //     locationX: -7,
+    //     locationY:-40,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
-    },
+    //     fontDate:15,
+    //     fontId:15,
+    //     fontLocation:15,
+    // },
 
     "1600x900": {},
 
@@ -935,7 +935,7 @@ function takeShot(id, loc, source){
     });
 
     ctx.textAlign = "left";
-    ctx.fillStyle = "#eaea4d";
+    ctx.fillStyle = "#DCE119";
 
     ctx.font = `${fontDate}px Arial`;
     ctx.fillText(
@@ -990,7 +990,7 @@ function takeShot(id, loc, source){
     // LOKASI
     // =========================
 
-    ctx.fillStyle = "#eaea4d";
+    ctx.fillStyle = "#DCE119";
     ctx.font = `${fontLocation}px Arial`;
 
     // Paksa Indonesia ke bawah
