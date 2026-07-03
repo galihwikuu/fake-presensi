@@ -143,9 +143,33 @@ uploadBtn.addEventListener('click', () => {
   fileInput.click();
 });
 
-fileInput.addEventListener('change', (e) => {
+fileInput.addEventListener("change", async (e) => {
   const file = e.target.files[0];
   if(!file) return;
+    let imageFile = file;
+
+    // Jika HEIC / HEIF
+    if (
+        file.type === "image/heic" ||
+        file.type === "image/heif" ||
+        file.name.toLowerCase().endsWith(".heic") ||
+        file.name.toLowerCase().endsWith(".heif")
+    ) {
+
+        const convertedBlob = await heic2any({
+            blob: file,
+            toType: "image/jpeg",
+            quality: 0.95
+        });
+
+        imageFile = new File(
+            [convertedBlob],
+            file.name.replace(/\.(heic|heif)$/i, ".jpg"),
+            {
+                type: "image/jpeg"
+            }
+        );
+    }
   const id = getId();
   const loc = getLoc();
   if(!id){ statusEl.textContent = 'Pilih atau isi ID terlebih dahulu.'; fileInput.value=''; return; }
@@ -165,7 +189,7 @@ fileInput.addEventListener('change', (e) => {
     };
     uploadSrc.src = ev.target.result;
   };
-  reader.readAsDataURL(file);
+  reader.readAsDataURL(imageFile);
   optionMenu.style.display = "none";
   fileInput.value = '';
 });
@@ -464,12 +488,12 @@ const layouts = {
         infoY: 20,
         infoGap: 8,
 
-        logoX: 10,
-        logoY: -15 ,
+        logoX: -50,
+        logoY: -30,
         logoScale:0.47,
 
         locationX: -7,
-        locationY:-40,
+        locationY: -80,
 
         fontDate:15,
         fontId:15,
@@ -651,25 +675,6 @@ const customSizes = {
 
     "2448x3264": {
         // 8 MP
-    },
-
-    "3024x4032": {
-        // 12 MP (banyak Android/iPhone)
-        infoX: -3,
-        infoY: 50,
-        infoGap: 8,
-
-        logoX: 25,
-        logoY: -70,
-        logoScale:0.47,
-
-        locationX: -3,
-        locationY: -55,
-
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
-        
     },
 
 
