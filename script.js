@@ -427,7 +427,7 @@ const layouts = {
         infoY: 10,
         infoGap: 8,
 
-        logoX: -15,
+        logoX: -5,
         logoY: -30,
         logoScale:0.45,
 
