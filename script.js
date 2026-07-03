@@ -483,16 +483,16 @@ const customSizes = {
     // ======================
 
     "480x640": {
-        infoX: -3,
-        infoY: 10,
+        infoX: -7,
+        infoY: 20,
         infoGap: 8,
 
-        logoX: 20,
-        logoY: -15,
+        logoX: 32,
+        logoY: -34,
         logoScale:0.47,
 
-        locationX: -3,
-        locationY:-17,
+        locationX: -7,
+        locationY:-40,
 
         fontDate:15,
         fontId:15,
@@ -790,17 +790,35 @@ function takeShot(id, loc, source){
     console.log("Layout :", ratioKey);
     console.log("Custom :", customSizes[sizeKey] ? sizeKey : "Tidak ada");
 
-    canvas.width = w;
-    canvas.height = h;
+    let outW = w;
+    let outH = h;
+
+    // Jika resolusi kecil, naikkan 2x
+    if (w <= 720 || h <= 720) {
+        outW = w * 2;
+        outH = h * 2;
+    }
+
+    canvas.width = outW;
+    canvas.height = outH;
 
     const ctx = canvas.getContext("2d");
-    ctx.drawImage(source, 0, 0, w, h);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
+    ctx.drawImage(
+        source,
+        0,
+        0,
+        outW,
+        outH
+    );
 
     // =========================
     // Margin Responsif
     // =========================
-    const marginX = w * 0.03;
-    const marginY = h * 0.03;
+    const marginX = outW * 0.03;
+    const marginY = outH * 0.03;
 
     let infoX, infoY, infoGap;
     let logoX, logoY;
@@ -823,19 +841,27 @@ function takeShot(id, loc, source){
 
     if (ratioKey === "9:16") {
 
-        fontDate = w * 0.030;
+        fontDate = outW * 0.030;
         fontId = w * 0.030;
         fontLocation = w * 0.030;
 
     } else {
 
-        const base = Math.max(w, h);
+        const base = Math.max(outW, outH);
 
-        fontDate = Math.max(layout.fontDate, base * 0.020);
-        fontId = Math.max(layout.fontId, base * 0.018);
-        fontLocation = Math.max(layout.fontLocation, base * 0.018);
+        fontDate = Math.max(layout.fontDate, base * 0.025);
+        fontId = Math.max(layout.fontId, base * 0.025);
+        fontLocation = Math.max(layout.fontLocation, base * 0.025);
 
     }
+
+    console.log({
+    fontDate,
+    fontId,
+    fillStyle: ctx.fillStyle,
+    globalAlpha: ctx.globalAlpha,
+    filter: ctx.filter
+    });
 
     // =========================
     // Shadow
@@ -866,7 +892,7 @@ function takeShot(id, loc, source){
     });
 
     ctx.textAlign = "left";
-    ctx.fillStyle = "#e7eb10";
+    ctx.fillStyle = "#eaea4d";
 
     ctx.font = `${fontDate}px Arial`;
     ctx.fillText(
@@ -879,7 +905,6 @@ function takeShot(id, loc, source){
     // ID
     // =========================
     ctx.font = `${fontId}px Arial`;
-
     ctx.fillText(
         id,
         infoX,
@@ -890,7 +915,7 @@ function takeShot(id, loc, source){
     // LOGO PNG
     // =========================
 
-    const logoWidth = w * layout.logoScale;
+    const logoWidth = outW * layout.logoScale;
     const logoHeight = logoWidth * (logo.height / logo.width);
 
     if (ratioKey === "9:16") {
@@ -907,7 +932,7 @@ function takeShot(id, loc, source){
 
         ctx.drawImage(
             logo,
-            w - marginX - logoWidth + layout.logoX,
+            outW - marginX - logoWidth + layout.logoX,
             infoY + layout.logoY,
             logoWidth,
             logoHeight
@@ -922,7 +947,7 @@ function takeShot(id, loc, source){
     // LOKASI
     // =========================
 
-    ctx.fillStyle = "#e7eb10";
+    ctx.fillStyle = "#eaea4d";
     ctx.font = `${fontLocation}px Arial`;
 
     // Paksa Indonesia ke bawah
@@ -933,8 +958,8 @@ function takeShot(id, loc, source){
         ctx,
         displayLocation,
         locationX,
-        h - locationY,
-        w - locationX * 2,
+        outH - locationY,
+        outW * 0.90,
         fontLocation * 1.2
     );
 
