@@ -893,27 +893,13 @@ function takeShot(id, loc, source){
     const logoWidth = w * layout.logoScale;
     const logoHeight = logoWidth * (logo.height / logo.width);
 
-    if (ratioKey === "9:16") {
-
-        ctx.drawImage(
-            logo,
-            w - logoX - logoWidth,
-            logoY,
-            logoWidth,
-            logoHeight
-        );
-
-    } else {
-
-        ctx.drawImage(
-            logo,
-            w - marginX - logoWidth + layout.logoX,
-            infoY + layout.logoY,
-            logoWidth,
-            logoHeight
-        );
-
-    }
+    ctx.drawImage(
+        logo,
+        w - marginX - logoWidth + layout.logoX,
+        infoY + layout.logoY,
+        logoWidth,
+        logoHeight
+    );
 
     // Kembalikan filter agar tidak mempengaruhi elemen lain
     ctx.filter = "none";
