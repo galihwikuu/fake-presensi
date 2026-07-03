@@ -671,35 +671,19 @@ const customSizes = {
         fontLocation:15,
         
     },
-    "2268x4032": {
-        // Full Iphone
-        infoX: -3,
-        infoY: 50,
-        infoGap: 8,
 
-        logoX: 25,
-        logoY: -70,
-        logoScale:0.47,
-
-        locationX: -3,
-        locationY: -55,
-
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
-    },
 
     "3072x4096": {
-        infoX: -3,
-        infoY: 50,
+        infoX: -7,
+        infoY: 20,
         infoGap: 8,
 
-        logoX: 25,
-        logoY: -70,
+        logoX: 32,
+        logoY: -34,
         logoScale:0.47,
 
-        locationX: -3,
-        locationY: -55,
+        locationX: -7,
+        locationY:-40,
 
         fontDate:15,
         fontId:15,
@@ -707,16 +691,16 @@ const customSizes = {
     },
 
     "3456x4608": {
-        infoX: -3,
-        infoY: 50,
+        infoX: -7,
+        infoY: 20,
         infoGap: 8,
 
-        logoX: 25,
-        logoY: -70,
+        logoX: 32,
+        logoY: -34,
         logoScale:0.47,
 
-        locationX: -3,
-        locationY: -55,
+        locationX: -7,
+        locationY:-40,
 
         fontDate:15,
         fontId:15,
@@ -725,16 +709,16 @@ const customSizes = {
 
     "4000x3000": {
         // 12 MP Landscape
-        infoX: -3,
-        infoY: 50,
+        infoX: -7,
+        infoY: 20,
         infoGap: 8,
 
-        logoX: 25,
-        logoY: -70,
+        logoX: 32,
+        logoY: -34,
         logoScale:0.47,
 
-        locationX: -3,
-        locationY: -55,
+        locationX: -7,
+        locationY:-40,
 
         fontDate:15,
         fontId:15,
