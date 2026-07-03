@@ -573,16 +573,16 @@ const customSizes = {
 
     "960x1280": {
         // HD 4:3
-        infoX: -3,
-        infoY: 10,
+        infoX: -7,
+        infoY: 20,
         infoGap: 8,
 
-        logoX: 25,
-        logoY: -35,
-        logoScale:0.30,
+        logoX: 32,
+        logoY: -34,
+        logoScale:0.47,
 
-        locationX: -3,
-        locationY: -35,
+        locationX: -7,
+        locationY:-40,
 
         fontDate:15,
         fontId:15,
@@ -749,7 +749,22 @@ const customSizes = {
 
     "854x480": {},
 
-    "1280x720": {},
+    "1280x720": {
+        infoX: -7,
+        infoY: 20,
+        infoGap: 8,
+
+        logoX: 32,
+        logoY: -34,
+        logoScale:0.47,
+
+        locationX: -7,
+        locationY:-40,
+
+        fontDate:15,
+        fontId:15,
+        fontLocation:15,
+    },
 
     "1600x900": {},
 
