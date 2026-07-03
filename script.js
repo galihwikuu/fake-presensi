@@ -11,6 +11,7 @@ const uploadBtn = document.getElementById('uploadBtn');
 const fileInput = document.getElementById('fileInput');
 const retakeBtn = document.getElementById('retakeBtn');
 const downloadBtn = document.getElementById('downloadBtn');
+const refreshBtn = document.getElementById("refreshBtn");
 const statusEl = document.getElementById('status');
 const frameWrap = document.getElementById('frameWrap');
 const backBtn = document.getElementById("backBtn");
@@ -33,6 +34,9 @@ const defaultAspectRatio = getComputedStyle(frameWrap).aspectRatio;
 const today = new Date();
 dateInput.value = today.toISOString().split("T")[0];
 
+let originalDataUrl = null;
+let cameraImage = null;
+let currentSource = null;
 let stream = null;
 let finalDataUrl = null;
 
@@ -61,6 +65,7 @@ openOptionBtn.addEventListener('click', () => {
 
         const id = getId();
         const loc = getLoc();
+        
 
         if(!id){
             statusEl.textContent = "Pilih ID terlebih dahulu.";
@@ -72,7 +77,27 @@ openOptionBtn.addEventListener('click', () => {
             return;
         }
 
-        takeShot(id, loc, video);
+        // Simpan frame terakhir dari kamera
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = video.videoWidth;
+        tempCanvas.height = video.videoHeight;
+
+        const tempCtx = tempCanvas.getContext("2d");
+        tempCtx.drawImage(video, 0, 0);
+
+        // Buat Image dari frame kamera
+        cameraImage = new Image();
+
+        cameraImage.onload = () => {
+
+            currentSource = cameraImage;
+
+            takeShot(id, loc, cameraImage);
+
+        };
+
+        cameraImage.src = tempCanvas.toDataURL("image/jpeg", 0.95);
+
         return;
     }
 
@@ -83,9 +108,6 @@ openOptionBtn.addEventListener('click', () => {
             : "flex";
 
 });
- 
-
-const idCustomWrap = document.getElementById('idCustomWrap');
 
 idSelect.addEventListener('change', () => {
     if (idSelect.value === 'custom') {
@@ -138,6 +160,7 @@ fileInput.addEventListener('change', (e) => {
         stream.getTracks().forEach(t => t.stop());
         stream = null;
       }
+      currentSource = uploadSrc;
       takeShot(id, loc, uploadSrc);
     };
     uploadSrc.src = ev.target.result;
@@ -246,6 +269,7 @@ retakeBtn.addEventListener("click", () => {
     optionMenu.style.display = "none";
 
     retakeBtn.style.display = "none";
+    refreshBtn.style.display = "none";
     downloadBtn.style.display = "none";
 
     finalDataUrl = null;
@@ -264,6 +288,19 @@ downloadBtn.addEventListener("click", () => {
     a.href = finalDataUrl;
     a.download = `presensi_${Date.now()}.jpg`;
     a.click();
+
+});
+// =========================
+// REFRESH
+// =========================
+refreshBtn.addEventListener("click", () => {
+
+    if (!currentSource) return;
+
+    const id = getId();
+    const loc = getLoc();
+
+    takeShot(id, loc, currentSource);
 
 });
 
@@ -407,11 +444,11 @@ const layouts = {
 
     "16:9":{
         infoX: -3,
-        infoY: 10,
+        infoY: 50,
         infoGap: 8,
 
         logoX: 25,
-        logoY: -20,
+        logoY: -50,
         logoScale:0.35,
 
         locationX: -3,
@@ -762,6 +799,8 @@ function getAspectRatio(w, h) {
 
 
 function takeShot(id, loc, source){
+    console.log(source);
+    console.log(source.id);
 
     // =========================
     // Ukuran Gambar
@@ -951,8 +990,7 @@ function takeShot(id, loc, source){
     ctx.font = `${fontLocation}px Arial`;
 
     // Paksa Indonesia ke bawah
-    const displayLocation =
-        loc.replace(", Indonesia", ",\nIndonesia");
+    const displayLocation = loc;
 
     drawLocation(
         ctx,
@@ -992,6 +1030,7 @@ function takeShot(id, loc, source){
     
 
     retakeBtn.style.display = "flex";
+    refreshBtn.style.display = "flex";
     downloadBtn.style.display = "flex";
 
     frameWrap.classList.remove("live");
