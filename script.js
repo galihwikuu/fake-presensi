@@ -1,5 +1,5 @@
 const logo = new Image();
-logo.src = "logo-putih.png";
+logo.src = "DD0A95EE-2BEE-47E0-88B9-5E6641129261.png";
 
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
