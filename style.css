@@ -5,6 +5,11 @@
       display: none;             /* Chrome, Edge, Safari, Opera */
   }
 
+  @font-face {
+    font-family: "MyArial";
+    src: url("fonts/Arial.ttf") format("truetype");
+}
+
   :root{
     --bg-0:#0b0e14;
     --bg-1:#11151d;
