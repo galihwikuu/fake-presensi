@@ -553,11 +553,11 @@ const customSizes = {
         logoScale:0.46,
 
         locationX: -7,
-        locationY:-60,
+        locationY:-50,
 
         fontDate:13,
         fontId:13,
-        fontLocation: 33,
+        fontLocation: 32,
         // VGA
     },
         "720x1280": {
