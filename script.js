@@ -144,8 +144,16 @@ uploadBtn.addEventListener('click', () => {
 });
 
 fileInput.addEventListener("change", async (e) => {
-  const file = e.target.files[0];
-  if(!file) return;
+    const file = e.target.files[0];
+    if(!file) return;
+
+    // Cek apakah file asli adalah HEIC
+    const isHeic =
+        file.type === "image/heic" ||
+        file.type === "image/heif" ||
+        file.name.toLowerCase().endsWith(".heic") ||
+        file.name.toLowerCase().endsWith(".heif");
+
     let imageFile = file;
 
     // Jika HEIC / HEIF
@@ -176,22 +184,96 @@ fileInput.addEventListener("change", async (e) => {
   if(!loc){ statusEl.textContent = 'Pilih atau isi lokasi terlebih dahulu.'; fileInput.value=''; return; }
   statusEl.textContent = '';
 
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    uploadSrc.onload = () => {
-      // stop camera if running
-      if(stream){
-        stream.getTracks().forEach(t => t.stop());
-        stream = null;
-      }
-      currentSource = uploadSrc;
-      takeShot(id, loc, uploadSrc);
+    const reader = new FileReader();
+
+    reader.onload = (ev) => {
+
+        // ==========================
+        // JPG / PNG
+        // ==========================
+        if (!isHeic) {
+
+            uploadSrc.onload = () => {
+
+                if (stream) {
+                    stream.getTracks().forEach(t => t.stop());
+                    stream = null;
+                }
+
+                currentSource = uploadSrc;
+                takeShot(id, loc, uploadSrc);
+
+            };
+
+            uploadSrc.src = ev.target.result;
+            return;
+        }
+
+        // ==========================
+        // KHUSUS HEIC
+        // ==========================
+
+        const img = new Image();
+
+        img.onload = () => {
+
+            const MAX_HEIGHT = 1280;
+
+            let newWidth = img.width;
+            let newHeight = img.height;
+
+            if (img.height > MAX_HEIGHT) {
+
+                const scale = MAX_HEIGHT / img.height;
+
+                newWidth = Math.round(img.width * scale);
+                newHeight = Math.round(img.height * scale);
+            }
+
+            const tempCanvas = document.createElement("canvas");
+
+            tempCanvas.width = newWidth;
+            tempCanvas.height = newHeight;
+
+            const tempCtx = tempCanvas.getContext("2d");
+
+            tempCtx.imageSmoothingEnabled = true;
+            tempCtx.imageSmoothingQuality = "high";
+
+            tempCtx.drawImage(
+                img,
+                0,
+                0,
+                newWidth,
+                newHeight
+            );
+
+            uploadSrc.onload = () => {
+
+                if (stream) {
+                    stream.getTracks().forEach(t => t.stop());
+                    stream = null;
+                }
+
+                currentSource = uploadSrc;
+                takeShot(id, loc, uploadSrc);
+
+            };
+
+            uploadSrc.src = tempCanvas.toDataURL(
+                "image/jpeg",
+                0.82
+            );
+
+        };
+
+        img.src = ev.target.result;
     };
-    uploadSrc.src = ev.target.result;
-  };
-  reader.readAsDataURL(imageFile);
-  optionMenu.style.display = "none";
-  fileInput.value = '';
+
+    reader.readAsDataURL(imageFile);
+    reader.readAsDataURL(imageFile);
+    optionMenu.style.display = "none";
+    fileInput.value = '';
 });
 
 camBtn.addEventListener('click', async () => {
@@ -560,22 +642,22 @@ const customSizes = {
         fontLocation: 8.75,
         // VGA
     },
-        "720x1280": {
-        infoX: -7,
-        infoY: 22,
-        infoGap: 8,
+    //     "720x1280": {
+    //     infoX: -7,
+    //     infoY: 22,
+    //     infoGap: 8,
 
-        logoX: -750,
-        logoY: -35,
-        logoScale:0.45,
+    //     logoX: -750,
+    //     logoY: -35,
+    //     logoScale:0.45,
 
-        locationX: -7,
-        locationY:-44,
+    //     locationX: -7,
+    //     locationY:-44,
 
-        fontDate:12,
-        fontId:12,
-        fontLocation: 20,
-    },
+    //     fontDate:12,
+    //     fontId:12,
+    //     fontLocation: 20,
+    // },
 
     "768x1024": {
         // Tablet
@@ -738,22 +820,22 @@ const customSizes = {
 
     "854x480": {},
 
-    // "1280x720": {
-    //     infoX: -7,
-    //     infoY: 20,
-    //     infoGap: 8,
+    "1280x720": {
+        infoX: -7,
+        infoY: 20,
+        infoGap: 8,
 
-    //     logoX: 32,
-    //     logoY: -34,
-    //     logoScale:0.47,
+        logoX: 32,
+        logoY: -34,
+        logoScale:0.47,
 
-    //     locationX: -7,
-    //     locationY:-40,
+        locationX: -7,
+        locationY:-40,
 
-    //     fontDate:15,
-    //     fontId:15,
-    //     fontLocation:15,
-    // },
+        fontDate:15,
+        fontId:15,
+        fontLocation:15,
+    },
 
     "1600x900": {},
 
@@ -818,6 +900,8 @@ function takeShot(id, loc, source){
 
     const sizeKey = `${w}x${h}`;
 
+    console.log(sizeKey);
+    console.log(customSizes[sizeKey]);
     if (customSizes[sizeKey]) {
         layout = {
             ...layout,
@@ -914,7 +998,7 @@ ctx.shadowBlur = 8;
 ctx.shadowOffsetX = 2;
 ctx.shadowOffsetY = 2;
 
-ctx.filter = "blur(1px)";
+ctx.filter = "blur(1.20px)";
     // =========================
     // DATE & TIME
     // =========================
