@@ -1009,7 +1009,7 @@ ctx.filter = "blur(1.20px)";
     ctx.textAlign = "left";
     ctx.fillStyle = "#e7eb10";
 
-    ctx.font = `${fontLocation}px MyArial`;
+    ctx.font = `${fontLocation}px ArialCustom`;
     ctx.fillText(
         `${date}, ${time}`,
         infoX,
@@ -1019,7 +1019,7 @@ ctx.filter = "blur(1.20px)";
     // =========================
     // ID
     // =========================
-    ctx.font = `${fontLocation}px MyArial`;
+    ctx.font = `${fontLocation}px ArialCustom`;
     ctx.fillText(
         id,
         infoX,
@@ -1062,7 +1062,7 @@ ctx.filter = "blur(1.20px)";
     // =========================
 
     ctx.fillStyle = "#e7eb10";
-    ctx.font = `${fontLocation}px MyArial`;
+    ctx.font = `${fontLocation}px ArialCustom`;
 
     // Paksa Indonesia ke bawah
     const displayLocation = loc;
