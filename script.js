@@ -497,7 +497,7 @@ const layouts = {
 
         fontDate:13,
         fontId:13,
-        fontLocation: 50,
+        fontLocation: 80,
     },
     "1920x1440": {
         infoX: -3,
