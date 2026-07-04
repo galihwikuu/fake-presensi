@@ -622,7 +622,7 @@ const customSizes = {
         logoScale:0.45,
 
         locationX: -7,
-        locationY:-44,
+        locationY:-46,
 
         fontDate:12,
         fontId:12,
