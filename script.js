@@ -557,7 +557,7 @@ const customSizes = {
 
         fontDate:13,
         fontId:13,
-        fontLocation:50,
+        fontLocation:30,
         // VGA
     },
         "720x1280": {
