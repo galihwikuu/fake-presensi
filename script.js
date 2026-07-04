@@ -488,8 +488,8 @@ const layouts = {
         infoY: 20,
         infoGap: 8,
 
-        logoX: 80,
-        logoY: -30,
+        logoX: 10,
+        logoY: -40,
         logoScale:0.46,
 
         locationX: -7,
@@ -886,7 +886,7 @@ function takeShot(id, loc, source){
 
         fontDate = outW * 0.030;
         fontId = w * 0.030;
-        fontLocation = w * 0.040;
+        fontLocation = w * 0.037;
 
     } else {
 
