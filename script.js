@@ -886,7 +886,7 @@ function takeShot(id, loc, source){
 
         fontDate = outW * 0.030;
         fontId = w * 0.030;
-        fontLocation = w * 0.030;
+        fontLocation = w * 0.040;
 
     } else {
 
