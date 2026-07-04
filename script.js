@@ -914,7 +914,7 @@ ctx.shadowBlur = 8;
 ctx.shadowOffsetX = 2;
 ctx.shadowOffsetY = 2;
 
-ctx.filter = "blur(0.8px)";
+ctx.filter = "blur(1px)";
     // =========================
     // DATE & TIME
     // =========================
