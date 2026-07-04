@@ -1,5 +1,5 @@
 const logo = new Image();
-logo.src = "logo-putih2.png";
+logo.src = "logo-aircraft.png";
 
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
@@ -505,16 +505,16 @@ const layouts = {
         infoY: 22,
         infoGap: 8,
 
-        logoX: 30,
-        logoY: -35,
+        logoX: 24,
+        logoY: -40,
         logoScale:0.45,
 
         locationX: -7,
-        locationY:-44,
+        locationY:-46,
 
         fontDate:12,
         fontId:12,
-        fontLocation: 8.75,
+        fontLocation: 8.95,
     },
 
     "4:3":{
@@ -522,34 +522,34 @@ const layouts = {
         infoY: 22,
         infoGap: 8,
 
-        logoX: 30,
-        logoY: -35,
+        logoX: 24,
+        logoY: -40,
         logoScale:0.45,
 
         locationX: -7,
-        locationY:-44,
+        locationY:-46,
 
         fontDate:12,
         fontId:12,
-        fontLocation: 8.75,
+        fontLocation: 8.95,
 
     },
 
     "16:9":{
-        infoX: -3,
-        infoY: 50,
+        infoX: -7,
+        infoY: 22,
         infoGap: 8,
 
-        logoX: 60,
-        logoY: -50,
-        logoScale:0.42,
+        logoX: 24,
+        logoY: -40,
+        logoScale:0.20,
 
-        locationX: -3,
-        locationY: -20,
+        locationX: -7,
+        locationY:-46,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.95,
 
     },
     "9:16":{
@@ -617,8 +617,8 @@ const customSizes = {
         infoY: 22,
         infoGap: 8,
 
-        logoX: 30,
-        logoY: -35,
+        logoX: 24,
+        logoY: -40,
         logoScale:0.45,
 
         locationX: -7,
@@ -670,16 +670,16 @@ const customSizes = {
         infoY: 22,
         infoGap: 8,
 
-        logoX: 30,
-        logoY: -35,
+        logoX: 24,
+        logoY: -40,
         logoScale:0.45,
 
         locationX: -7,
-        locationY:-44,
+        locationY:-46,
 
         fontDate:12,
         fontId:12,
-        fontLocation: 8.75,
+        fontLocation: 8.95,
     },
 
     "1200x1600": {
@@ -809,19 +809,19 @@ const customSizes = {
 
     "1280x720": {
         infoX: -7,
-        infoY: 20,
+        infoY: 22,
         infoGap: 8,
 
-        logoX: 32,
-        logoY: -34,
-        logoScale:0.47,
+        logoX: 24,
+        logoY: -40,
+        logoScale:0.35,
 
         locationX: -7,
-        locationY:-40,
+        locationY:-46,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.95,
     },
 
     "1600x900": {},
@@ -985,7 +985,7 @@ ctx.shadowBlur = 8;
 ctx.shadowOffsetX = 2;
 ctx.shadowOffsetY = 2;
 
-ctx.filter = "blur(1.20px)";
+ctx.filter = "blur(0.9px)";
     // =========================
     // DATE & TIME
     // =========================
@@ -1007,7 +1007,7 @@ ctx.filter = "blur(1.20px)";
     });
 
     ctx.textAlign = "left";
-    ctx.fillStyle = "#e7eb10";
+    ctx.fillStyle = "#D7DF2B";
 
     ctx.font = `${fontLocation}px Arial`;
     ctx.fillText(
@@ -1061,7 +1061,7 @@ ctx.filter = "blur(1.20px)";
     // LOKASI
     // =========================
 
-    ctx.fillStyle = "#e7eb10";
+    ctx.fillStyle = "#D7DF2B";
     ctx.font = `${fontLocation}px Arial`;
 
     // Paksa Indonesia ke bawah
