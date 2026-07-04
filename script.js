@@ -433,36 +433,36 @@ const layouts = {
 
     "3:4": {
         infoX: -7,
-        infoY: 20,
+        infoY: 22,
         infoGap: 8,
 
         logoX: 30,
-        logoY: -33,
+        logoY: -35,
         logoScale:0.45,
 
-        locationX: -8,
-        locationY:-42,
+        locationX: -7,
+        locationY:-44,
 
         fontDate:12,
         fontId:12,
-        fontLocation: 31,
+        fontLocation: 8.75,
     },
 
     "4:3":{
         infoX: -7,
-        infoY: 20,
+        infoY: 22,
         infoGap: 8,
 
         logoX: 30,
-        logoY: -33,
+        logoY: -35,
         logoScale:0.45,
 
-        locationX: -8,
-        locationY:-42,
+        locationX: -7,
+        locationY:-44,
 
-        fontDate:13,
-        fontId:13,
-        fontLocation: 32,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.75,
 
     },
 
@@ -485,54 +485,54 @@ const layouts = {
     },
     "9:16":{
         infoX: -7,
-        infoY: 20,
+        infoY: 22,
         infoGap: 8,
 
-        logoX: 10,
-        logoY: -20,
-        logoScale:0.46,
+        logoX: -750,
+        logoY: -35,
+        logoScale:0.45,
 
         locationX: -7,
-        locationY:-40,
+        locationY:-44,
 
-        fontDate:13,
-        fontId:13,
-        fontLocation: 80,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 5,
     },
     "1920x1440": {
-        infoX: -3,
-        infoY: 10,
+        infoX: -7,
+        infoY: 22,
         infoGap: 8,
 
-        logoX: 25,
+        logoX: 30,
         logoY: -35,
-        logoScale:0.30,
+        logoScale:0.45,
 
-        locationX: -3,
-        locationY: -35,
+        locationX: -7,
+        locationY:-44,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.75,
 
     },
 
     "1:1":{
 
-        infoX: 20,
-        infoY: 30,
+        infoX: -7,
+        infoY: 22,
         infoGap: 8,
 
-        logoX:-12,
-        logoY: -40,
-        logoScale:0.4,
+        logoX: 30,
+        logoY: -35,
+        logoScale:0.45,
 
-        locationX: 20,
-        locationY:-17,
+        locationX: -7,
+        locationY:-44,
 
-        fontDate:16,
-        fontId:15,
-        fontLocation:15
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.75,
     }
 
 };
@@ -545,124 +545,124 @@ const customSizes = {
 
     "480x640": {
         infoX: -7,
-        infoY: 20,
+        infoY: 22,
         infoGap: 8,
 
         logoX: 30,
-        logoY: -33,
+        logoY: -35,
         logoScale:0.45,
 
-        locationX: -8,
-        locationY:-42,
+        locationX: -7,
+        locationY:-44,
 
         fontDate:12,
         fontId:12,
-        fontLocation: 31,
+        fontLocation: 8.75,
         // VGA
     },
         "720x1280": {
         infoX: -7,
-        infoY: 20,
+        infoY: 22,
         infoGap: 8,
 
-        logoX: 30,
-        logoY: -33,
+        logoX: -750,
+        logoY: -35,
         logoScale:0.45,
 
-        locationX: -8,
-        locationY:-42,
+        locationX: -7,
+        locationY:-44,
 
-        fontDate:13,
-        fontId:13,
-        fontLocation: 32,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 20,
     },
 
     "768x1024": {
         // Tablet
-        infoX: -3,
-        infoY: 10,
+        infoX: -7,
+        infoY: 22,
         infoGap: 8,
 
-        logoX: 25,
-        logoY: -29,
-        logoScale:0.47,
+        logoX: 30,
+        logoY: -35,
+        logoScale:0.45,
 
-        locationX: -3,
-        locationY: -35,
+        locationX: -7,
+        locationY:-44,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.75,
     },
 
     "960x1280": {
         // HD 4:3
         infoX: -7,
-        infoY: 20,
+        infoY: 22,
         infoGap: 8,
 
         logoX: 30,
-        logoY: -33,
+        logoY: -35,
         logoScale:0.45,
 
-        locationX: -8,
-        locationY:-42,
+        locationX: -7,
+        locationY:-44,
 
-        fontDate:13,
-        fontId:13,
-        fontLocation: 32,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.75,
     },
 
     "1200x1600": {
         // 2 MP
-        infoX: -3,
-        infoY: 10,
+        infoX: -7,
+        infoY: 22,
         infoGap: 8,
 
-        logoX: 25,
+        logoX: 30,
         logoY: -35,
-        logoScale:0.30,
+        logoScale:0.45,
 
-        locationX: -3,
-        locationY: -35,
+        locationX: -7,
+        locationY:-44,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.75,
     },
 
     "1440x1920": {
         // iPhone Portrait
-        infoX: -3,
-        infoY: 10,
+        infoX: -7,
+        infoY: 22,
         infoGap: 8,
 
-        logoX: 25,
+        logoX: 30,
         logoY: -35,
-        logoScale:0.47,
-
-        locationX: -3,
-        locationY: -35,
-
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
-    },
-    "1920x1440": {
-        infoX: -3,
-        infoY: 10,
-        infoGap: 8,
-
-        logoX: -10,
-        logoY: -25,
         logoScale:0.45,
 
-        locationX: -3,
-        locationY: -35,
+        locationX: -7,
+        locationY:-44,
 
-        fontDate:30,
-        fontId:30,
-        fontLocation:30,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.75,
+    },
+    "1920x1440": {
+        infoX: -7,
+        infoY: 22,
+        infoGap: 8,
+
+        logoX: 30,
+        logoY: -35,
+        logoScale:0.45,
+
+        locationX: -7,
+        locationY:-44,
+
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.75,
     },
 
     "1536x2048": {
@@ -680,54 +680,54 @@ const customSizes = {
 
     "3072x4096": {
         infoX: -7,
-        infoY: 20,
+        infoY: 22,
         infoGap: 8,
 
-        logoX: 32,
-        logoY: -34,
-        logoScale:0.47,
+        logoX: 30,
+        logoY: -35,
+        logoScale:0.45,
 
         locationX: -7,
-        locationY:-40,
+        locationY:-44,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.75,
     },
 
     "3456x4608": {
         infoX: -7,
-        infoY: 20,
+        infoY: 22,
         infoGap: 8,
 
-        logoX: 32,
-        logoY: -34,
-        logoScale:0.47,
+        logoX: 30,
+        logoY: -35,
+        logoScale:0.45,
 
         locationX: -7,
-        locationY:-40,
+        locationY:-44,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.75,
     },
 
     "4000x3000": {
         // 12 MP Landscape
         infoX: -7,
-        infoY: 20,
+        infoY: 22,
         infoGap: 8,
 
-        logoX: 32,
-        logoY: -34,
-        logoScale:0.47,
+        logoX: 30,
+        logoY: -35,
+        logoScale:0.45,
 
         locationX: -7,
-        locationY:-40,
+        locationY:-44,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 8.75,
     },
 
     // ======================
@@ -885,8 +885,8 @@ function takeShot(id, loc, source){
     if (ratioKey === "9:16") {
 
         fontDate = outW * 0.036;
-        fontId = w * 0.036;
-        fontLocation = w * 0.036;
+        fontId = outW * 0.036;
+        fontLocation = w * 0.070;
 
     } else {
 
@@ -894,7 +894,7 @@ function takeShot(id, loc, source){
 
         fontDate = Math.max(layout.fontDate, base * 0.025);
         fontId = Math.max(layout.fontId, base * 0.025);
-        fontLocation = Math.max(layout.fontLocation, base * 0.025);
+        fontLocation = (base * 0.018) + layout.fontLocation;
 
     }
 
@@ -1002,7 +1002,7 @@ ctx.filter = "blur(1px)";
         locationX,
         outH - locationY,
         outW * 0.90,
-        fontLocation * 1.2
+        fontLocation * 1.3
     );
     // kembalikan filter
     ctx.filter = "none";
