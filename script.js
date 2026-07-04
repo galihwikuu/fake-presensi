@@ -397,41 +397,84 @@ refreshBtn.addEventListener("click", () => {
 
 });
 
-function drawLocation(ctx, text, x, bottom, maxWidth, lineHeight){
+function drawLocation(ctx, text, x, bottom, maxWidth, lineHeight) {
 
-    // Pisahkan berdasarkan enter
     const paragraphs = text.split("\n");
-
     let lines = [];
 
     for (const paragraph of paragraphs) {
 
-        const words = paragraph.split(" ");
-        let line = "";
+        const words = paragraph.split(/\s+/);
+
+        let current = "";
 
         for (const word of words) {
 
-            const test = line + word + " ";
+            const test = current ? current + " " + word : word;
 
-            if (ctx.measureText(test).width > maxWidth && line !== "") {
-                lines.push(line.trim());
-                line = word + " ";
+            if (ctx.measureText(test).width <= maxWidth) {
+
+                current = test;
+
             } else {
-                line = test;
+
+                if (current) lines.push(current);
+
+                current = word;
             }
         }
 
-        if (line.trim() !== "") {
-            lines.push(line.trim());
+        if (current) lines.push(current);
+    }
+
+    // ==========================
+    // Rapikan baris terakhir
+    // ==========================
+
+    if (lines.length >= 2) {
+
+        const last = lines[lines.length - 1];
+        const prev = lines[lines.length - 2];
+
+        const lastWords = last.split(" ");
+
+        // Kalau baris terakhir cuma 1 kata,
+        // coba pindahkan satu kata dari baris sebelumnya.
+        if (lastWords.length === 1) {
+
+            const prevWords = prev.split(" ");
+
+            if (prevWords.length > 2) {
+
+                const moved = prevWords.pop();
+
+                const candidatePrev = prevWords.join(" ");
+                const candidateLast = moved + " " + last;
+
+                if (
+                    ctx.measureText(candidatePrev).width <= maxWidth &&
+                    ctx.measureText(candidateLast).width <= maxWidth
+                ) {
+                    lines[lines.length - 2] = candidatePrev;
+                    lines[lines.length - 1] = candidateLast;
+                }
+
+            }
+
         }
+
     }
 
-    let y = bottom - (lines.length * lineHeight);
+    let y = bottom - (lines.length - 1) * lineHeight;
 
-    for (const l of lines) {
-        ctx.fillText(l, x, y);
+    for (const line of lines) {
+
+        ctx.fillText(line, x, y);
+
         y += lineHeight;
+
     }
+
 }
 
 // PIN LOCK SCREEN
