@@ -549,7 +549,7 @@ const customSizes = {
         infoGap: 8,
 
         logoX: 37,
-        logoY: -33,
+        logoY: -30,
         logoScale:0.45,
 
         locationX: -7,
