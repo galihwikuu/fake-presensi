@@ -549,11 +549,11 @@ const customSizes = {
         infoGap: 8,
 
         logoX: 35,
-        logoY: -35,
+        logoY: -37,
         logoScale:0.46,
 
         locationX: -7,
-        locationY:-80,
+        locationY:-60,
 
         fontDate:13,
         fontId:13,
