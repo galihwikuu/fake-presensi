@@ -443,9 +443,9 @@ const layouts = {
         locationX: -8,
         locationY:-42,
 
-        fontDate:13,
-        fontId:13,
-        fontLocation: 32,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 31,
     },
 
     "4:3":{
@@ -555,9 +555,9 @@ const customSizes = {
         locationX: -8,
         locationY:-42,
 
-        fontDate:13,
-        fontId:13,
-        fontLocation: 32,
+        fontDate:12,
+        fontId:12,
+        fontLocation: 31,
         // VGA
     },
         "720x1280": {
