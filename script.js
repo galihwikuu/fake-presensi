@@ -432,20 +432,20 @@ pinEnter.onclick=()=>{
 const layouts = {
 
     "3:4": {
-        infoX: -3,
-        infoY: 10,
+        infoX: -7,
+        infoY: 20,
         infoGap: 8,
 
-        logoX: 25,
-        logoY: -35,
+        logoX: 30,
+        logoY: -33,
         logoScale:0.45,
 
-        locationX: -3,
-        locationY: -35,
+        locationX: -8,
+        locationY:-42,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:13,
+        fontId:13,
+        fontLocation: 32,
     },
 
     "4:3":{
@@ -453,16 +453,16 @@ const layouts = {
         infoY: 20,
         infoGap: 8,
 
-        logoX: 32,
-        logoY: -34,
-        logoScale:0.47,
+        logoX: 30,
+        logoY: -33,
+        logoScale:0.45,
 
-        locationX: -7,
-        locationY:-40,
+        locationX: -8,
+        locationY:-42,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:13,
+        fontId:13,
+        fontLocation: 32,
 
     },
 
@@ -552,29 +552,29 @@ const customSizes = {
         logoY: -33,
         logoScale:0.45,
 
-        locationX: -7,
-        locationY:-45,
+        locationX: -8,
+        locationY:-42,
 
         fontDate:13,
         fontId:13,
-        fontLocation: 33,
+        fontLocation: 32,
         // VGA
     },
         "720x1280": {
-        infoX: -3,
-        infoY: 10,
+        infoX: -7,
+        infoY: 20,
         infoGap: 8,
 
-        logoX: -10,
-        logoY: -15,
+        logoX: 30,
+        logoY: -33,
         logoScale:0.45,
 
-        locationX: -3,
-        locationY: -35,
+        locationX: -8,
+        locationY:-42,
 
-        fontDate:30,
-        fontId:30,
-        fontLocation:30,
+        fontDate:13,
+        fontId:13,
+        fontLocation: 32,
     },
 
     "768x1024": {
@@ -601,16 +601,16 @@ const customSizes = {
         infoY: 20,
         infoGap: 8,
 
-        logoX: 35,
-        logoY: -32,
-        logoScale:0.47,
+        logoX: 30,
+        logoY: -33,
+        logoScale:0.45,
 
-        locationX: -7,
-        locationY:-40,
+        locationX: -8,
+        locationY:-42,
 
-        fontDate:15,
-        fontId:15,
-        fontLocation:15,
+        fontDate:13,
+        fontId:13,
+        fontLocation: 32,
     },
 
     "1200x1600": {
