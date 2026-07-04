@@ -488,7 +488,7 @@ const layouts = {
         infoY: 20,
         infoGap: 8,
 
-        logoX: 45,
+        logoX: 80,
         logoY: -30,
         logoScale:0.46,
 
@@ -497,7 +497,7 @@ const layouts = {
 
         fontDate:13,
         fontId:13,
-        fontLocation: 38,
+        fontLocation: 50,
     },
     "1920x1440": {
         infoX: -3,
