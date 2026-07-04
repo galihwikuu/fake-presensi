@@ -884,8 +884,8 @@ function takeShot(id, loc, source){
 
     if (ratioKey === "9:16") {
 
-        fontDate = outW * 0.034;
-        fontId = w * 0.034;
+        fontDate = outW * 0.036;
+        fontId = w * 0.036;
         fontLocation = w * 0.036;
 
     } else {
