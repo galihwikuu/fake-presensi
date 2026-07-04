@@ -489,7 +489,7 @@ const layouts = {
         infoGap: 8,
 
         logoX: 10,
-        logoY: -40,
+        logoY: -20,
         logoScale:0.46,
 
         locationX: -7,
@@ -884,9 +884,9 @@ function takeShot(id, loc, source){
 
     if (ratioKey === "9:16") {
 
-        fontDate = outW * 0.030;
-        fontId = w * 0.030;
-        fontLocation = w * 0.037;
+        fontDate = outW * 0.034;
+        fontId = w * 0.034;
+        fontLocation = w * 0.036;
 
     } else {
 
