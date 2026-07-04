@@ -184,91 +184,78 @@ fileInput.addEventListener("change", async (e) => {
   if(!loc){ statusEl.textContent = 'Pilih atau isi lokasi terlebih dahulu.'; fileInput.value=''; return; }
   statusEl.textContent = '';
 
-    const reader = new FileReader();
+const reader = new FileReader();
 
-    reader.onload = (ev) => {
+reader.onload = (ev) => {
 
-        // ==========================
-        // JPG / PNG
-        // ==========================
-        if (!isHeic) {
+    const img = new Image();
 
-            uploadSrc.onload = () => {
+    img.onload = () => {
 
-                if (stream) {
-                    stream.getTracks().forEach(t => t.stop());
-                    stream = null;
-                }
+        // Maksimal tinggi yang diizinkan
+        const MAX_HEIGHT = 1280;
 
-                currentSource = uploadSrc;
-                takeShot(id, loc, uploadSrc);
+        let newWidth = img.width;
+        let newHeight = img.height;
 
-            };
+        // Hanya kompres jika resolusi terlalu tinggi
+        if (img.height > MAX_HEIGHT) {
 
-            uploadSrc.src = ev.target.result;
-            return;
+            const scale = MAX_HEIGHT / img.height;
+
+            newWidth = Math.round(img.width * scale);
+            newHeight = Math.round(img.height * scale);
+
+            console.log("Gambar dikompres:", `${newWidth}x${newHeight}`);
+
+        } else {
+
+            console.log("Resolusi normal, tidak dikompres.");
+
         }
 
-        // ==========================
-        // KHUSUS HEIC
-        // ==========================
+        const tempCanvas = document.createElement("canvas");
 
-        const img = new Image();
+        tempCanvas.width = newWidth;
+        tempCanvas.height = newHeight;
 
-        img.onload = () => {
+        const tempCtx = tempCanvas.getContext("2d");
 
-            const MAX_HEIGHT = 1280;
+        tempCtx.imageSmoothingEnabled = true;
+        tempCtx.imageSmoothingQuality = "high";
 
-            let newWidth = img.width;
-            let newHeight = img.height;
+        tempCtx.drawImage(
+            img,
+            0,
+            0,
+            newWidth,
+            newHeight
+        );
 
-            if (img.height > MAX_HEIGHT) {
+        uploadSrc.onload = () => {
 
-                const scale = MAX_HEIGHT / img.height;
-
-                newWidth = Math.round(img.width * scale);
-                newHeight = Math.round(img.height * scale);
+            if(stream){
+                stream.getTracks().forEach(t => t.stop());
+                stream = null;
             }
 
-            const tempCanvas = document.createElement("canvas");
+            currentSource = uploadSrc;
 
-            tempCanvas.width = newWidth;
-            tempCanvas.height = newHeight;
-
-            const tempCtx = tempCanvas.getContext("2d");
-
-            tempCtx.imageSmoothingEnabled = true;
-            tempCtx.imageSmoothingQuality = "high";
-
-            tempCtx.drawImage(
-                img,
-                0,
-                0,
-                newWidth,
-                newHeight
-            );
-
-            uploadSrc.onload = () => {
-
-                if (stream) {
-                    stream.getTracks().forEach(t => t.stop());
-                    stream = null;
-                }
-
-                currentSource = uploadSrc;
-                takeShot(id, loc, uploadSrc);
-
-            };
-
-            uploadSrc.src = tempCanvas.toDataURL(
-                "image/jpeg",
-                0.82
-            );
+            takeShot(id, loc, uploadSrc);
 
         };
 
-        img.src = ev.target.result;
+        uploadSrc.src = tempCanvas.toDataURL(
+            "image/jpeg",
+            0.90
+        );
+
     };
+
+    img.src = ev.target.result;
+};
+
+reader.readAsDataURL(imageFile);
 
     reader.readAsDataURL(imageFile);
     reader.readAsDataURL(imageFile);
@@ -612,9 +599,9 @@ const layouts = {
         locationX: -7,
         locationY:-44,
 
-        fontDate:12,
-        fontId:12,
-        fontLocation: 8.75,
+        fontDate:20,
+        fontId:20,
+        fontLocation: 20,
     }
 
 };
