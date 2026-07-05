@@ -1,5 +1,5 @@
 const logo = new Image();
-logo.src = "logo-aircraft.png";
+logo.src = "img/logo-aircraft.png";
 
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
@@ -385,7 +385,8 @@ downloadBtn.addEventListener("click", () => {
 });
 // =========================
 // REFRESH
-// =========================
+const refreshIcon = refreshBtn.querySelector("img");
+
 refreshBtn.addEventListener("click", () => {
 
     if (!currentSource) return;
@@ -393,8 +394,17 @@ refreshBtn.addEventListener("click", () => {
     const id = getId();
     const loc = getLoc();
 
+    refreshBtn.classList.remove("spinning");
+    void refreshIcon.offsetWidth; // reset animasi
+
+    refreshBtn.classList.add("spinning");
+
     takeShot(id, loc, currentSource);
 
+});
+
+refreshIcon.addEventListener("animationend", () => {
+    refreshBtn.classList.remove("spinning");
 });
 
 function drawLocation(ctx, text, x, bottom, maxWidth, lineHeight){

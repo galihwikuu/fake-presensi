@@ -490,6 +490,11 @@ canvas{
 
 }
 
+.lock-logo img {
+  width: 35px;
+  height: 35px;
+}
+
 .lock-card h2{
 
     margin:0;
@@ -598,6 +603,75 @@ canvas{
     transition:opacity .3s;
 
 }
+
+.primary{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.primary img{
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+
+#refreshBtn img{
+    width: 22px;
+    height: 22px;
+    filter: brightness(0) invert(1);
+}
+
+#refreshBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+#refreshBtn img{
+    width: 22px;
+    height: 22px;
+}
+
+#refreshBtn.spinning img{
+    animation: spin .6s ease;
+}
+
+@keyframes spin{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+
+.btnbar{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+#refreshBtn{
+    flex: 0 0 50px;      /* Lebar tetap */
+    width: 50px;
+    height: 50px;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#retakeBtn,
+#downloadBtn{
+    flex: 1;             /* Membagi sisa ruang */
+}
+
 #pinStatus.show{
     opacity:1;
 }

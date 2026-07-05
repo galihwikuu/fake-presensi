@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <title>Presensi Foto</title>
 </head>
 <body>
@@ -13,7 +14,7 @@
     <div class="lock-card">
 
         <div class="lock-logo">
-            🔒
+            <img src="img/lock.png" alt="Lock">
         </div>
 
         <h2>Natra Fake Presence</h2>
@@ -121,14 +122,17 @@
   <img id="shotImg">
   <img id="uploadSrc" style="display:none;">
   <div class="hint" id="hint">
-    <div class="icon">📷</div>
-    <div>Tekan <strong>"Buka Kamera"</strong> atau <strong>"Unggah Gambar"</strong> untuk mulai</div>
+    <div class="icon">
+        <i class="bi bi-camera-fill"></i>
+    </div>
+    <div>Tekan <strong>"Ambil Foto"</strong> atau <strong>"Unggah Gambar"</strong> untuk mulai</div>
   </div>
 </div>
 
 <div class="btnbar">
     <button id="openOptionBtn" class="primary">
-        📤 Unggah Gambar
+        <img src="img/upload.png" alt="Upload">
+        Unggah Gambar
     </button>
 
     <button id="backBtn" class="ghost" style="display:none;">
@@ -144,11 +148,13 @@
 
 <div id="optionMenu" class="option-menu">
     <button id="camBtn">
-        📷 Ambil Foto
+        <i class="bi bi-camera-fill"></i>
+        Ambil Foto
     </button>
 
     <button id="uploadBtn">
-        🖼️ Unggah Gambar
+        <i class="bi bi-cloud-arrow-up-fill"></i>
+        Unggah Gambar
     </button>
 </div>
 
@@ -158,7 +164,7 @@
     </button>
 
     <button id="refreshBtn" class="secondary" style="display:none;">
-        Refresh
+        <img src="img/refresh.png" alt="Refresh">
     </button>
 
     <button id="downloadBtn" class="primary" style="display:none;">
