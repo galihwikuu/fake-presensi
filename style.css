@@ -618,12 +618,6 @@ canvas{
 }
 
 
-#refreshBtn img{
-    width: 22px;
-    height: 22px;
-    filter: brightness(0) invert(1);
-}
-
 #refreshBtn{
     display: flex;
     align-items: center;
