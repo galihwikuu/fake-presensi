@@ -988,12 +988,22 @@ function takeShot(id, loc, source){
 
     // =========================
     // Canvas terpisah khusus watermark (transparan)
-    // Supaya blur cuma kena watermark, bukan fotonya
+    // Digambar di ukuran LEBIH KECIL (scaleDown) lalu di-upscale
+    // supaya efek blur-nya terasa "sub-pixel" (mis. ~1.5px) walau
+    // StackBlur cuma bisa radius bulat (1, 2, 3, ...)
     // =========================
-    const wmCanvas = document.createElement("canvas");
-    wmCanvas.width = outW;
-    wmCanvas.height = outH;
-    const wctx = wmCanvas.getContext("2d");
+    const scaleDown = 1.1; // makin kecil nilai ini, makin halus/blur efeknya
+    const smallW = Math.round(outW * scaleDown);
+    const smallH = Math.round(outH * scaleDown);
+
+    const wmCanvasSmall = document.createElement("canvas");
+    wmCanvasSmall.width = smallW;
+    wmCanvasSmall.height = smallH;
+    const wctx = wmCanvasSmall.getContext("2d");
+
+    // Semua koordinat & ukuran font watermark ikut di-scale
+    // supaya posisi & proporsinya tetap sama persis seperti aslinya
+    wctx.scale(scaleDown, scaleDown);
 
     // =========================
     // Shadow (untuk watermark)
@@ -1094,17 +1104,29 @@ function takeShot(id, loc, source){
     );
 
     // =========================
-    // Blur watermark saja (canvas transparan, foto tidak kena)
+    // Blur di canvas KECIL (radius bulat, mis. 1)
     // =========================
-    const blurRadius = 2;
+    const blurRadius = 1;
     StackBlur.canvasRGBA(
-        wmCanvas,
+        wmCanvasSmall,
         0,
         0,
-        outW,
-        outH,
+        smallW,
+        smallH,
         blurRadius
     );
+
+    // =========================
+    // Upscale watermark kecil (sudah blur) ke ukuran penuh
+    // Proses upscale ini yang menghasilkan efek blur "sub-pixel"
+    // =========================
+    const wmCanvas = document.createElement("canvas");
+    wmCanvas.width = outW;
+    wmCanvas.height = outH;
+    const wmFullCtx = wmCanvas.getContext("2d");
+    wmFullCtx.imageSmoothingEnabled = true;
+    wmFullCtx.imageSmoothingQuality = "high";
+    wmFullCtx.drawImage(wmCanvasSmall, 0, 0, outW, outH);
 
     // =========================
     // Tempel watermark yang sudah di-blur ke atas foto asli
