@@ -700,39 +700,39 @@ const customSizes = {
         fontLocation: 8.75,
     },
 
-    "1440x1920": {
-        // iPhone Portrait
-        infoX: -7,
-        infoY: 22,
-        infoGap: 8,
+    // "1440x1920": {
+    //     // iPhone Portrait
+    //     infoX: -7,
+    //     infoY: 22,
+    //     infoGap: 8,
 
-        logoX: 30,
-        logoY: -35,
-        logoScale:0.45,
+    //     logoX: 30,
+    //     logoY: -35,
+    //     logoScale:0.45,
 
-        locationX: -7,
-        locationY:-44,
+    //     locationX: -7,
+    //     locationY:-44,
 
-        fontDate:12,
-        fontId:12,
-        fontLocation: 8.95,
-    },
-    "1920x1440": {
-        infoX: -7,
-        infoY: 22,
-        infoGap: 8,
+    //     fontDate:12,
+    //     fontId:12,
+    //     fontLocation: 8.95,
+    // },
+    // "1920x1440": {
+    //     infoX: -7,
+    //     infoY: 22,
+    //     infoGap: 8,
 
-        logoX: 30,
-        logoY: -35,
-        logoScale:0.45,
+    //     logoX: 30,
+    //     logoY: -35,
+    //     logoScale:0.45,
 
-        locationX: -7,
-        locationY:-44,
+    //     locationX: -7,
+    //     locationY:-44,
 
-        fontDate:12,
-        fontId:12,
-        fontLocation: 8.95,
-    },
+    //     fontDate:12,
+    //     fontId:12,
+    //     fontLocation: 8.95,
+    // },
 
     "1536x2048": {
         // iPad
