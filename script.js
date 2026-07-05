@@ -1096,7 +1096,7 @@ function takeShot(id, loc, source){
     // =========================
     // Blur watermark saja (canvas transparan, foto tidak kena)
     // =========================
-    const blurRadius = 1;
+    const blurRadius = 2;
     StackBlur.canvasRGBA(
         wmCanvas,
         0,
