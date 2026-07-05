@@ -715,7 +715,7 @@ const customSizes = {
 
         fontDate:12,
         fontId:12,
-        fontLocation: 8.75,
+        fontLocation: 8.95,
     },
     "1920x1440": {
         infoX: -7,
@@ -731,7 +731,7 @@ const customSizes = {
 
         fontDate:12,
         fontId:12,
-        fontLocation: 8.75,
+        fontLocation: 8.95,
     },
 
     "1536x2048": {
