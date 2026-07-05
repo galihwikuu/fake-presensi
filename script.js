@@ -983,19 +983,26 @@ function takeShot(id, loc, source){
     fontDate,
     fontId,
     fillStyle: ctx.fillStyle,
-    globalAlpha: ctx.globalAlpha,
-    filter: ctx.filter
+    globalAlpha: ctx.globalAlpha
 });
 
-// =========================
-// Shadow
-// =========================
-ctx.shadowColor = "rgba(0,0,0,.8)";
-ctx.shadowBlur = 8;
-ctx.shadowOffsetX = 2;
-ctx.shadowOffsetY = 2;
+    // =========================
+    // Canvas terpisah khusus watermark (transparan)
+    // Supaya blur cuma kena watermark, bukan fotonya
+    // =========================
+    const wmCanvas = document.createElement("canvas");
+    wmCanvas.width = outW;
+    wmCanvas.height = outH;
+    const wctx = wmCanvas.getContext("2d");
 
-ctx.filter = "blur(5px)";
+    // =========================
+    // Shadow (untuk watermark)
+    // =========================
+    wctx.shadowColor = "rgba(0,0,0,.8)";
+    wctx.shadowBlur = 8;
+    wctx.shadowOffsetX = 2;
+    wctx.shadowOffsetY = 2;
+
     // =========================
     // DATE & TIME
     // =========================
@@ -1016,11 +1023,11 @@ ctx.filter = "blur(5px)";
         minute: "2-digit"
     });
 
-    ctx.textAlign = "left";
-    ctx.fillStyle = "#D7DF2B";
+    wctx.textAlign = "left";
+    wctx.fillStyle = "#D7DF2B";
 
-    ctx.font = `${fontLocation}px Arial`;
-    ctx.fillText(
+    wctx.font = `${fontLocation}px Arial`;
+    wctx.fillText(
         `${date}, ${time}`,
         infoX,
         infoY
@@ -1029,8 +1036,8 @@ ctx.filter = "blur(5px)";
     // =========================
     // ID
     // =========================
-    ctx.font = `${fontLocation}px Arial`;
-    ctx.fillText(
+    wctx.font = `${fontLocation}px Arial`;
+    wctx.fillText(
         id,
         infoX,
         infoY + fontDate + infoGap
@@ -1046,7 +1053,7 @@ ctx.filter = "blur(5px)";
 
     if (ratioKey === "9:16") {
 
-        ctx.drawImage(
+        wctx.drawImage(
             logo,
             w - logoX - logoWidth,
             logoY,
@@ -1056,7 +1063,7 @@ ctx.filter = "blur(5px)";
 
     } else {
 
-        ctx.drawImage(
+        wctx.drawImage(
             logo,
             outW - marginX - logoWidth + layout.logoX,
             infoY + layout.logoY,
@@ -1071,29 +1078,38 @@ ctx.filter = "blur(5px)";
     // LOKASI
     // =========================
 
-    ctx.fillStyle = "#D7DF2B";
-    ctx.font = `${fontLocation}px Arial`;
+    wctx.fillStyle = "#D7DF2B";
+    wctx.font = `${fontLocation}px Arial`;
 
     // Paksa Indonesia ke bawah
     const displayLocation = loc;
 
     drawLocation(
-        ctx,
+        wctx,
         displayLocation,
         locationX,
         outH - locationY,
         outW * 0.90,
         fontLocation * 1.3
     );
-    // kembalikan filter
-    ctx.filter = "none";
 
     // =========================
-    // Reset Shadow
+    // Blur watermark saja (canvas transparan, foto tidak kena)
     // =========================
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
+    const blurRadius = 1;
+    StackBlur.canvasRGBA(
+        wmCanvas,
+        0,
+        0,
+        outW,
+        outH,
+        blurRadius
+    );
+
+    // =========================
+    // Tempel watermark yang sudah di-blur ke atas foto asli
+    // =========================
+    ctx.drawImage(wmCanvas, 0, 0);
 
     // =========================
     // Simpan Hasil
@@ -1150,4 +1166,3 @@ document.addEventListener('wheel', function(e){
         e.preventDefault();
     }
 }, { passive: false });
-
