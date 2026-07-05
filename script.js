@@ -983,9 +983,9 @@ function takeShot(id, loc, source){
 ctx.shadowColor = "rgba(0,0,0,.8)";
 ctx.shadowBlur = 8;
 ctx.shadowOffsetX = 2;
-ctx.shadowOffsetY = 2;
+ctx.shadowOffsetY = 2;''
 
-ctx.filter = "blur(0.9px)";
+ctx.filter = "blur(1.2px)";
     // =========================
     // DATE & TIME
     // =========================
