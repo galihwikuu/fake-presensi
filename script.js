@@ -1026,7 +1026,7 @@ function takeShot(id, loc, source){
     });
 
     wctx.textAlign = "left";
-    wctx.fillStyle = "#D7DF2B";
+    wctx.fillStyle = "#f4f81f";
 
     wctx.font = `${fontLocation}px Arial`;
     wctx.fillText(
@@ -1080,7 +1080,7 @@ function takeShot(id, loc, source){
     // LOKASI
     // =========================
 
-    wctx.fillStyle = "#D7DF2B";
+    wctx.fillStyle = "#f4f81f";
     wctx.font = `${fontLocation}px Arial`;
 
     // Paksa Indonesia ke bawah
