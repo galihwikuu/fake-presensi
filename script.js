@@ -627,9 +627,9 @@ const customSizes = {
         infoY: 22,
         infoGap: 8,
 
-        logoX: 24,
-        logoY: -40,
-        logoScale:0.45,
+        logoX: 19,
+        logoY: -37,
+        logoScale:0.439,
 
         locationX: -7,
         locationY:-46,
@@ -992,24 +992,16 @@ function takeShot(id, loc, source){
     // supaya efek blur-nya terasa "sub-pixel" (mis. ~1.5px) walau
     // StackBlur cuma bisa radius bulat (1, 2, 3, ...)
     // =========================
-    const scaleDown = 1; // makin kecil nilai ini, makin halus/blur efeknya
-    const smallW = Math.round(outW * scaleDown);
-    const smallH = Math.round(outH * scaleDown);
-
-    const wmCanvasSmall = document.createElement("canvas");
-    wmCanvasSmall.width = smallW;
-    wmCanvasSmall.height = smallH;
-    const wctx = wmCanvasSmall.getContext("2d");
-
-    // Semua koordinat & ukuran font watermark ikut di-scale
-    // supaya posisi & proporsinya tetap sama persis seperti aslinya
-    wctx.scale(scaleDown, scaleDown);
+    const wmCanvas = document.createElement("canvas");
+    wmCanvas.width = outW;
+    wmCanvas.height = outH;
+    const wctx = wmCanvas.getContext("2d");
 
     // =========================
     // Shadow (untuk watermark)
     // =========================
-    wctx.shadowColor = "rgba(0,0,0,.75)";
-    wctx.shadowBlur = 30;
+    wctx.shadowColor = "rgba(0,0,0,.9)";
+    wctx.shadowBlur = 50;
     wctx.shadowOffsetX = 0;
     wctx.shadowOffsetY = 0;
 
@@ -1108,29 +1100,14 @@ function takeShot(id, loc, source){
     // =========================
     const blurRadius = 1;
     StackBlur.canvasRGBA(
-        wmCanvasSmall,
+        wmCanvas,
         0,
         0,
-        smallW,
-        smallH,
+        outW,
+        outH,
         blurRadius
     );
 
-    // =========================
-    // Upscale watermark kecil (sudah blur) ke ukuran penuh
-    // Proses upscale ini yang menghasilkan efek blur "sub-pixel"
-    // =========================
-    const wmCanvas = document.createElement("canvas");
-    wmCanvas.width = outW;
-    wmCanvas.height = outH;
-    const wmFullCtx = wmCanvas.getContext("2d");
-    wmFullCtx.imageSmoothingEnabled = true;
-    wmFullCtx.imageSmoothingQuality = "high";
-    wmFullCtx.drawImage(wmCanvasSmall, 0, 0, outW, outH);
-
-    // =========================
-    // Tempel watermark yang sudah di-blur ke atas foto asli
-    // =========================
     ctx.drawImage(wmCanvas, 0, 0);
 
     // =========================
