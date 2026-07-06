@@ -1026,7 +1026,7 @@ function takeShot(id, loc, source){
     });
 
     wctx.textAlign = "left";
-    wctx.fillStyle = "#efeb30";
+    wctx.fillStyle = "#eaef0f";
 
     wctx.font = `${fontLocation}px Arial`;
     wctx.fillText(
@@ -1080,7 +1080,7 @@ function takeShot(id, loc, source){
     // LOKASI
     // =========================
 
-    wctx.fillStyle = "#efeb30";
+    wctx.fillStyle = "#eaef0f";
     wctx.font = `${fontLocation}px Arial`;
 
     // Paksa Indonesia ke bawah
@@ -1098,7 +1098,7 @@ function takeShot(id, loc, source){
     // =========================
     // Blur di canvas KECIL (radius bulat, mis. 1)
     // =========================
-    const blurRadius = 1;
+    const blurRadius = 0.5;
     StackBlur.canvasRGBA(
         wmCanvas,
         0,
@@ -1113,7 +1113,30 @@ function takeShot(id, loc, source){
     // =========================
     // Simpan Hasil
     // =========================
-    finalDataUrl = canvas.toDataURL("image/jpeg", 0.95);
+    // Canvas hasil akhir
+    const finalCanvas = document.createElement("canvas");
+    finalCanvas.width = w;
+    finalCanvas.height = h;
+
+    const fctx = finalCanvas.getContext("2d");
+
+    fctx.imageSmoothingEnabled = true;
+    fctx.imageSmoothingQuality = "high";
+
+    // Kecilkan kembali
+    fctx.drawImage(
+        canvas,
+        0,
+        0,
+        outW,
+        outH,
+        0,
+        0,
+        w,
+        h
+    );
+
+    finalDataUrl = finalCanvas.toDataURL("image/jpeg", 0.95);
 
     shotImg.onload = () => {
         frameWrap.style.aspectRatio =
