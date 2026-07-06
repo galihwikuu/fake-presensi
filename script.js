@@ -992,7 +992,7 @@ function takeShot(id, loc, source){
     // supaya efek blur-nya terasa "sub-pixel" (mis. ~1.5px) walau
     // StackBlur cuma bisa radius bulat (1, 2, 3, ...)
     // =========================
-    const scaleDown = 1.1; // makin kecil nilai ini, makin halus/blur efeknya
+    const scaleDown = 0.9; // makin kecil nilai ini, makin halus/blur efeknya
     const smallW = Math.round(outW * scaleDown);
     const smallH = Math.round(outH * scaleDown);
 
@@ -1009,7 +1009,7 @@ function takeShot(id, loc, source){
     // Shadow (untuk watermark)
     // =========================
     wctx.shadowColor = "rgba(0,0,0,.8)";
-    wctx.shadowBlur = 8;
+    wctx.shadowBlur = 50;
     wctx.shadowOffsetX = 2;
     wctx.shadowOffsetY = 2;
 
