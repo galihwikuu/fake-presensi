@@ -54,7 +54,7 @@ const pinDelete = document.getElementById("pinDelete");
 const pinEnter = document.getElementById("pinEnter");
 const pinStatus = document.getElementById("pinStatus");
 
-const PIN = "123456";
+const PIN = "030201";
 
 let currentPin = "";
 
